@@ -184,7 +184,9 @@ return [
         'available'             => 'Доступно',
         'size'                  => 'Размер',
         'about'                 => 'О себе',
-        'user_contact.*.type'     => 'Тип контакта',
-        'user_contact.*.text'     => 'Контакт'
+        'user_contact.*.type'   => 'Тип контакта',
+        'user_contact.*.text'   => 'Контакт',
+        'check_data'            => 'Согласие на обработку данных',
+        'user_language'         => 'Язык'
     ],
 ];

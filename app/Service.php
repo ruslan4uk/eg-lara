@@ -8,6 +8,8 @@ class Service extends Model
 {
     protected $table = 'services';
 
+    protected $fillable = ['id'];
+    
     /**
      * Relation table users (ManyToMany)
      */

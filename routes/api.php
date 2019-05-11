@@ -25,4 +25,13 @@ Route::prefix('v1')->group(function() {
   Route::middleware('jwt')->group(function() {
     Route::resource('profile', 'ApiV1\User\HomeController')->only('index', 'store');
   });
+
+
+  // helpers
+  Route::prefix('helpers')->group(function() {
+    Route::resource('/services', 'ApiV1\Service\HomeController')->only('index');
+    Route::resource('/languagies', 'ApiV1\Language\HomeController')->only('index');
+    Route::get('/city', 'ApiV1\Geo\CityController@index');
+    Route::get('/city/id', 'ApiV1\Geo\CityController@id');
+  });
 });

@@ -9,6 +9,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Http\Resources\User as UserResource;
+
 class HomeController extends Controller
 {
 
@@ -19,11 +21,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = User::where('id', Auth::id())
+        $user = new UserResource(User::where('id', Auth::id())
                     ->with('userContact')
                     ->with('userLicense')
                     ->with('userService')
-                    ->first();
+                    ->with('userLanguage')
+                    ->with('userCity')
+                    ->first());
 
         return response()->json([
             'success' => true,
@@ -39,9 +43,13 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
+        // return response()->json([
+        //     'data' => $request->all()
+        // ]);
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'about' => ['required', 'string', 'min:10', 'max:6000'],
+            'user_language' => ['required'],
             'user_contact.*.type' => ['required'],
             'user_contact.*.text' => ['required']
             /**
@@ -54,6 +62,7 @@ class HomeController extends Controller
         $user->update($request->only('name', 'about'));
         $user->userService()->sync($request->user_service);
         $user->userLanguage()->sync($request->user_language);
+        $user->userCity()->sync($request->user_city_ids);
 
         // Очищаем контакты перед добавлением
         $user->userContact()->delete();
@@ -66,7 +75,7 @@ class HomeController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $user
+            'message' => 'Профиль успешно сохранен!' 
         ]);
     }
 

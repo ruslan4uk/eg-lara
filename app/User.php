@@ -26,7 +26,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token'
     ];
 
     /**
@@ -86,6 +86,21 @@ class User extends Authenticatable implements JWTSubject
      */
     public function userLanguage() {
         return $this->belongsToMany('App\Language', 'user_language', 'user_id', 'language_id');
+    }
+
+    /**
+     * Relation table country (ManyToMany)
+     */
+    public function userCountry() {
+        return $this->belongsToMany('App\Geo\Country', 'user_country', 'user_id', 'country_id');
+    }
+
+    /**
+     * Relation table city (ManyToMany)
+     */
+    public function userCity() {
+        return $this->belongsToMany('App\Geo\City', 'user_city', 'user_id', 'city_id')
+                    ->select('city.id', 'city.name', 'city.iso_code', 'city.city_country');
     }
     
 }
