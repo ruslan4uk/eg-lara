@@ -24,6 +24,9 @@ Route::prefix('v1')->group(function() {
   // User cabinet (jwt token guard)
   Route::middleware('jwt:api')->group(function() {
     Route::resource('profile', 'ApiV1\User\HomeController')->only('index', 'store');
+    Route::post('profile/multi-upload', 'ApiV1\User\UploadController@multiUploader');
+    Route::post('profile/multi-upload/delete', 'ApiV1\User\UploadController@multiUploaderDelete');
+    Route::post('profile/upload-avatar', 'ApiV1\User\UploadController@uploadAvatar');
   });
 
 
