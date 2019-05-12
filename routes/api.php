@@ -22,7 +22,7 @@ Route::prefix('v1')->group(function() {
   });
 
   // User cabinet (jwt token guard)
-  Route::middleware('jwt')->group(function() {
+  Route::middleware('jwt:api')->group(function() {
     Route::resource('profile', 'ApiV1\User\HomeController')->only('index', 'store');
   });
 
