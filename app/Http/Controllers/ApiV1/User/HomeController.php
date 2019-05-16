@@ -29,10 +29,12 @@ class HomeController extends Controller
                     ->with('userCity')
                     ->first());
 
-        return response()->json([
-            'success' => true,
-            'data' => $user
-        ]);
+        if($user) {
+            return response()->json([
+                'success' => true,
+                'data' => $user
+            ]);
+        }
     }
 
     /**
@@ -50,8 +52,10 @@ class HomeController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'about' => ['required', 'string', 'min:10', 'max:6000'],
             'user_language' => ['required'],
+            'user_city_ids' => ['required'],
             'user_contact.*.type' => ['required'],
-            'user_contact.*.text' => ['required']
+            'user_contact.*.text' => ['required'],
+            'user_service' => ['required'],
             /**
              * TODO: validation other attr
              */

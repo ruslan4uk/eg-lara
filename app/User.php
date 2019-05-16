@@ -59,6 +59,12 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    /**
+     * Relation table tour
+     */
+    public function tour() {
+        return $this->hasMany('App\Tour', 'user_id', 'id');
+    }
 
     /**
      * Relation table user_contacts

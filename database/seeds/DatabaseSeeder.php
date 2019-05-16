@@ -19,5 +19,24 @@ class DatabaseSeeder extends Seeder
 
         // Services
         $this->call(ServicesTableSeeder::class);
+
+        // ContactType
+        $this->call(ContactTypeSeeder::class);
+
+        // Category
+        $this->call(CategorySeeder::class);
+
+        // Currency
+        $this->call(CurrencySeeder::class);
+
+        // PeopleCategory
+        $this->call(PeopleCategorySeeder::class);
+
+        // PriceType
+        $this->call(PriceTypeSeeder::class);
+
+        // Timing
+        $this->call(TimingSeeder::class);
+
     }
 }

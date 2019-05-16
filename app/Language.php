@@ -11,7 +11,14 @@ class Language extends Model
     /**
      * Relation table user_language (ManyToMany)
      */
-    public function userLanguage() {
-        return $this->belongsToMany('App\Language', 'user_language', 'language_id', 'user_id');
+    public function languageUser() {
+        return $this->belongsToMany('App\User', 'user_language', 'language_id', 'user_id');
+    }
+
+    /**
+     * Relation table user_language (ManyToMany)
+     */
+    public function languageTour() {
+        return $this->belongsToMany('App\Tour', 'user_language', 'language_id', 'user_id');
     }
 }
