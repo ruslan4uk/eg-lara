@@ -11,8 +11,8 @@ class CurrencySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('currencies')->insert(['name' => 'Рубль',  'active' => 1]);
-        DB::table('currencies')->insert(['name' => 'Доллар',  'active' => 1]);
-        DB::table('currencies')->insert(['name' => 'Евро',  'active' => 1]);
+        DB::table('currencies')->insert(['name' => 'Рубль', 'iso_code' => 'rubl-sign', 'active' => 1]);
+        DB::table('currencies')->insert(['name' => 'Доллар', 'iso_code' => 'dollar-sign', 'active' => 1]);
+        DB::table('currencies')->insert(['name' => 'Евро', 'iso_code' => 'euro-sign', 'active' => 1]);
     }
 }

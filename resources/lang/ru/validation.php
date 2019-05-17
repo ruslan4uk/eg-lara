@@ -141,6 +141,12 @@ return [
         ],
         'user_city_ids' => [
             'required' => 'Укажите ваше местоположение'
+        ],
+        'city_id' => [
+            'required' => 'Выберите город'
+        ],
+        'price_type_id' => [
+            'required' => 'Выбеите тип цены'
         ]
     ],
     /*
@@ -193,6 +199,17 @@ return [
         'user_contact.*.type'   => 'Тип контакта',
         'user_contact.*.text'   => 'Контакт',
         'check_data'            => 'Согласие на обработку данных',
-        'user_language'         => 'Язык'
+        'user_language'         => 'Язык',
+        'tour_route'            => 'Маршрут экскурсии',
+        'category_id'           => 'Категория экскурсии',
+        'people_category_id'    => 'Категория доступности',
+        'people_count'          => 'Колличество участников',
+        'timing_id'             => 'Длительность экскурсии',
+        'price'                 => 'Цена',
+        'currency_id'           => 'Валюта',
+        'tour_services'         => 'Услуги',
+        'tour_more'             => 'Доп расходы',
+        'tour_other'            => 'Что с собой взять'
+        
     ],
 ];

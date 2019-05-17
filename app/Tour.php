@@ -8,7 +8,9 @@ class Tour extends Model
 {
     protected $table = "tours";
 
-    protected $fillable = ['user_id'];
+    protected $fillable = ['user_id', 'name', 'city_id', 'tour_route', 'category_id', 'people_category_id',
+                            'people_count', 'timing_id', 'price', 'currency_id', 'price_type_id',
+                            'tour_services', 'tour_more', 'tour_other', 'about', 'active'];
 
     /**
      * Relation table user (revers)
@@ -35,28 +37,28 @@ class Tour extends Model
      * Relation table peopleCategory
      */
     public function tourPeopleCategory() {
-        return $this->hasMany('App\PeopleCategory', 'people_category_id', 'id');
+        return $this->hasMany('App\PeopleCategory', 'id', 'people_category_id');
     }
 
     /**
      * Relation table timing
      */
     public function tourTiming() {
-        return $this->hasMany('App\Timing', 'timing_id', 'id');
+        return $this->hasMany('App\Timing', 'id', 'timing_id');
     }
 
      /**
      * Relation table currency
      */
     public function tourCurrency() {
-        return $this->hasMany('App\Currency', 'currency_id', 'id');
+        return $this->hasMany('App\Currency', 'id', 'currency_id');
     }
 
     /**
      * Relation table tourPriceType
      */
     public function tourPriceType() {
-        return $this->hasMany('App\PriceType', 'price_type_id', 'id');
+        return $this->hasMany('App\PriceType', 'id', 'price_type_id');
     }
 
     /**

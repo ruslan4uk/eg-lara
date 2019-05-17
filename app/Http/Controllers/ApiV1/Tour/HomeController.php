@@ -17,16 +17,40 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $tours = Tour::where('user_id', Auth::id())
+                     ->where('active', 2)
                      ->with('tourLanguage')
                      ->with('tourCategory')
                      ->with('tourPeopleCategory')
                      ->with('tourTiming')
                      ->with('tourCurrency')
                      ->with('tourPriceType')
-                     ->paginate(20);
+                     ->paginate(12);
+
+        return response()->json([
+            'success' => true,
+            'data' => $tours
+        ]);
+    }
+
+    /**
+     * Display a moderate tour
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function moderate(Request $request)
+    {
+        $tours = Tour::where('user_id', Auth::id())
+                     ->where('active', 1)
+                     ->with('tourLanguage')
+                     ->with('tourCategory')
+                     ->with('tourPeopleCategory')
+                     ->with('tourTiming')
+                     ->with('tourCurrency')
+                     ->with('tourPriceType')
+                     ->paginate(12);
 
         return response()->json([
             'success' => true,
@@ -58,7 +82,41 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'city_id' => 'required',
+            'tour_route' => 'required',
+            'category_id' => 'required',
+            'people_category_id' => 'required',
+            'people_count' => 'required',
+            'timing_id' => 'required',
+            'price' => 'required',
+            'currency_id' => 'required',
+            'price_type_id' => 'required',
+            'tour_services' => 'required',
+            'tour_more' => 'required',
+            'tour_other' => 'required',
+            'about' => 'required'
+        ]);
+
+        $tour = Tour::where('id', $request->get('id'))
+                    ->where('user_id', Auth::id())
+                    ->firstOrFail();
+
+        $tour->update($request->only(['name', 'city_id', 'tour_route', 'category_id', 'people_category_id',
+                                    'people_count', 'timing_id', 'price', 'currency_id', 'price_type_id',
+                                    'tour_services', 'tour_more', 'tour_other', 'about', 'active' ]));
+        
+        $tour->active = 1;
+
+        $tour->tourLanguage()->sync($request->tour_language);
+
+        $tour->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Тур успешно сохранен!' 
+        ]);
     }
 
     /**
