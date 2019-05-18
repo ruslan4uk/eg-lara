@@ -31,6 +31,9 @@ Route::prefix('v1')->group(function() {
     // Tour route
     Route::resource('profile/tour', 'ApiV1\Tour\HomeController');
     Route::get('profile/tour-moderate', 'ApiV1\Tour\HomeController@moderate');
+    Route::post('profile/tour/multi-upload/{id}', 'ApiV1\Tour\UploadController@multiUploader');
+    Route::post('profile/tour/multi-upload/{id}/delete', 'ApiV1\Tour\UploadController@multiUploaderDelete');
+    Route::post('profile/tour/upload-avatar/{id}', 'ApiV1\Tour\UploadController@uploadAvatar');
   });
 
 
@@ -49,4 +52,8 @@ Route::prefix('v1')->group(function() {
     Route::get('/city', 'ApiV1\Geo\CityController@index');
     Route::get('/city/id', 'ApiV1\Geo\CityController@id');
   });
+
+  // Frontend (no Auth)
+  Route::get('guide/{id}', 'ApiV1\Frontend\GuideController@index');
+
 });
