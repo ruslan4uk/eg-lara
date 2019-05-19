@@ -57,4 +57,11 @@ Route::prefix('v1')->group(function() {
   Route::get('guide/{id}', 'ApiV1\Frontend\GuideController@index');
   Route::get('guide/{id}/tour/{tour}', 'ApiV1\Frontend\GuideController@tour');
 
+  // Fronend catalog
+  Route::get('country/{country}/city/{city}/guide', 'ApiV1\Frontend\CatalogController@guide');
+
+  Route::get('country/{country}/city/{city}/{category?}', 'ApiV1\Frontend\CatalogController@tour');
+
+  
+
 });

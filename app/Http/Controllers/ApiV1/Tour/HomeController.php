@@ -83,6 +83,7 @@ class HomeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'avatar' => 'required',
             'name' => 'required',
             'city_id' => 'required',
             'tour_route' => 'required',
@@ -96,7 +97,8 @@ class HomeController extends Controller
             'tour_services' => 'required',
             'tour_more' => 'required',
             'tour_other' => 'required',
-            'about' => 'required'
+            'tour_image' => 'required',
+            'about' => 'required',
         ]);
 
         $tour = Tour::where('id', $request->get('id'))

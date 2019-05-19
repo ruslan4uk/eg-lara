@@ -16,7 +16,7 @@ class Tour extends Model
      * Relation table user (revers)
      */
     public function user() {
-        return $this->belongsToMany('App\User', 'user_id', 'id');
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
 
     /**

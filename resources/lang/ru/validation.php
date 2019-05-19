@@ -209,7 +209,8 @@ return [
         'currency_id'           => 'Валюта',
         'tour_services'         => 'Услуги',
         'tour_more'             => 'Доп расходы',
-        'tour_other'            => 'Что с собой взять'
-        
+        'tour_other'            => 'Что с собой взять',
+        'avatar'                => 'Обложка',
+        'tour_image'            => 'Фотографии экскурсии'
     ],
 ];
