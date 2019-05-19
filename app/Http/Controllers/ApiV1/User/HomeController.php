@@ -75,6 +75,9 @@ class HomeController extends Controller
                 ->create(['type' => $contact['type'], 'text' => $contact['text']]);
         }
 
+        if(!$user->active == 1)
+            $user->active = 0;
+
         $user->save();
 
         return response()->json([

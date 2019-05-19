@@ -68,4 +68,11 @@ class Tour extends Model
         return $this->hasMany('App\TourImage', 'tour_id', 'id');
     }
 
+    /**
+     * Relation table city
+     */
+    public function tourCity() {
+        return $this->hasMany('App\Geo\City', 'id', 'city_id')->select('id', 'name', 'iso_code')->with('cityCountry');
+    }
+
 }

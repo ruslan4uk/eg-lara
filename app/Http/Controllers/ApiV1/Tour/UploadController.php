@@ -65,7 +65,7 @@ class UploadController extends Controller
                 $save_name = Str::random(40);
                 
                 $photo = Image::make($file)
-                    ->resize(1200, null, function ($constraint) { $constraint->aspectRatio(); } )
+                    ->fit(1200, 700)
                     ->encode('jpg', 80);
 
                 $photo_crop = Image::make($file)

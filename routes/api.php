@@ -55,5 +55,6 @@ Route::prefix('v1')->group(function() {
 
   // Frontend (no Auth)
   Route::get('guide/{id}', 'ApiV1\Frontend\GuideController@index');
+  Route::get('guide/{id}/tour/{tour}', 'ApiV1\Frontend\GuideController@tour');
 
 });

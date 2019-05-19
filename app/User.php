@@ -74,6 +74,15 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * User table user_contact -> contact_type
+     */
+    public function userContactType() {
+        // return $this->hasMany('App\UserContact', 'user_id', 'id')
+        //             ->hasMany('App\ContactType', 'id', 'type');
+        return $this->userContact()->with('contactType');
+    }
+
+    /**
      * Relation table user_license
      */
     public function userLicense() {

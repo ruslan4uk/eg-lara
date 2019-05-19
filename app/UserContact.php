@@ -21,4 +21,11 @@ class UserContact extends Model
     public function user() {
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
+
+    /**
+     * Relation table contact_type
+     */
+    public function contactType() {
+        return $this->hasMany('App\ContactType', 'id', 'type');
+    }
 }

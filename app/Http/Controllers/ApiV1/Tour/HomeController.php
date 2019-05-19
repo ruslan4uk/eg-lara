@@ -107,7 +107,8 @@ class HomeController extends Controller
                                     'people_count', 'timing_id', 'price', 'currency_id', 'price_type_id',
                                     'tour_services', 'tour_more', 'tour_other', 'about', 'active' ]));
         
-        $tour->active = 1;
+        if(!$tour->active == 2)
+            $tour->active = 1;
 
         $tour->tourLanguage()->sync($request->tour_language);
 
