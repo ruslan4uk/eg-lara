@@ -39,6 +39,16 @@ class User extends Authenticatable implements JWTSubject
         'id' => 'Number',
     ];
 
+
+    /**
+     * Return has admin
+     *
+     * @return boolean
+     */
+    public function isAdmin() 
+    {     
+        return $this->status === 999 ? true : false;
+    }
     
     
      /**

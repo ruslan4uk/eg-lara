@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\ApiV1\Auth;
+namespace App\Http\Controllers\ApiV1\Admin;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -24,42 +24,6 @@ class AuthController extends Controller
         //$this->middleware('auth:api', ['except' => ['login']]);
     }
 
-
-    /**
-     * Register
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function register(Request $request)
-        {
-            $validator = Validator::make($request->all(), [
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|confirmed|min:6',
-                'check_data' => 'required',
-            ]);
-            if($validator->fails()){
-                return response()->json([
-                    'success' => false,
-                    'errors' => $validator->errors()
-                ], 422);
-            }
-            $user = User::create([
-                'name' => $request->get('name'),
-                'email' => $request->get('email'),
-                'password' => Hash::make($request->get('password')),
-            ]);
-            
-            $token = Auth::attempt($request->only(['email','password']));
-            return response()->json([
-                'success' => true,
-                'data' => $user,
-                'token' => $token,
-            ], 200);
-        }
-
-
     /**
      * Get a JWT via given credentials.
      *
@@ -68,8 +32,17 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password'); // grab credentials from the request
+        $token = JWTAuth::attempt($credentials);
         try {
-            if (!$token = JWTAuth::attempt($credentials)) { // attempt to verify the credentials and create a token for the user
+            if (!$token) { // attempt to verify the credentials and create a token for the user
+                return response()->json([
+                    'success' => false,
+                    'errors' => [
+                        'email' => 'Неправильный логин или пароль'
+                    ]
+                ], 422);
+            }
+            if(!JWTAuth::user()->isAdmin()) {
                 return response()->json([
                     'success' => false,
                     'errors' => [
@@ -89,18 +62,6 @@ class AuthController extends Controller
 
     }
 
-    /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function me()
-    {
-        return response()->json([
-            'succcess' => true,
-            'data' => JWTAuth::user()
-        ]);
-    }
 
     /**
      * Log the user out (Invalidate the token).

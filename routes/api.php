@@ -19,6 +19,7 @@ Route::prefix('v1')->group(function() {
     Route::post('/register', 'ApiV1\Auth\AuthController@register');
     Route::post('/login', 'ApiV1\Auth\AuthController@login');
     Route::post('/logout', 'ApiV1\Auth\AuthController@logout');
+    Route::post('/me', 'ApiV1\Auth\AuthController@me');
   });
 
   // User cabinet (jwt token guard)
@@ -64,4 +65,16 @@ Route::prefix('v1')->group(function() {
 
   
 
+
+  // Admin
+  Route::prefix('admin')->group(function() {
+    // Auth
+    Route::post('/auth/logout', 'ApiV1\Auth\AuthController@logout');
+    Route::post('/auth/me', 'ApiV1\Auth\AuthController@me');
+    Route::post('/auth/admin-login', 'ApiV1\Admin\AuthController@login');
+
+    Route::middleware(['role:admin', 'jwt:api'])->group(function() {
+      Route::resource('/guides', 'ApiV1\Admin\GuideController');
+    });
+  });
 });
