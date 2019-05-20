@@ -75,6 +75,7 @@ Route::prefix('v1')->group(function() {
 
     Route::middleware(['role:admin', 'jwt:api'])->group(function() {
       Route::resource('/guides', 'ApiV1\Admin\GuideController');
+      Route::resource('/tours', 'ApiV1\Admin\TourController');
     });
   });
 });

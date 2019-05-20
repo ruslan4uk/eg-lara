@@ -17,7 +17,12 @@ class TourController extends Controller
      */
     public function index()
     {
-        //
+        $tours = Tour::with('user')->paginate(20);
+
+        return response()->json([
+            'success' => true,
+            'data' => $tours
+        ]);
     }
 
     /**
@@ -49,7 +54,23 @@ class TourController extends Controller
      */
     public function show($id)
     {
-        //
+        $tours = Tour::with('user')
+                     ->with('tourLanguage')
+                     ->with('tourCategory')
+                     ->with('tourPeopleCategory')
+                     ->with('tourTiming')
+                     ->with('tourCurrency')
+                     ->with('tourPriceType')
+                     ->with('tourImage')
+                     ->with(['tourCity' => function($q) {
+                         $q->with('cityCountry');
+                     }])
+                     ->findOrFail($id);
+
+        return response()->json([
+            'success' => true,
+            'data' => $tours
+        ]);
     }
 
     /**
@@ -72,7 +93,11 @@ class TourController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(Tour::where('id', $id)->update(['active' => $request->get('active')])) 
+        
+            return response()->json([
+                'success' => true
+            ]);
     }
 
     /**
@@ -83,6 +108,10 @@ class TourController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(Tour::destroy($id)) {
+            return response()->json([
+                'success' => true
+            ]);
+        }
     }
 }
