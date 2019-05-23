@@ -45,7 +45,7 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'url' => env('DATABASE_URL'),
+            'url' => env('DATABASE_URL', 'a56959.mysql.mchost.ru'),
             'host' => env('DB_HOST', 'a56959.mysql.mchost.ru'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'a56959_egLara'),
