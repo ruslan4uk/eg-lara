@@ -12,9 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('mails.confirm');
+    return view('welcom');
 });
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
