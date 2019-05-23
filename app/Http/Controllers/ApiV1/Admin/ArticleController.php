@@ -140,12 +140,18 @@ class ArticleController extends Controller
             $avatar = Image::make($request->file('file'))->fit(1920, 800)->encode('jpg', 100);
             $avatar_crop = Image::make($request->file('file'))->fit(320, 320)->encode('jpg', 80);
 
-            Storage::disk('public')->put($save_path . '/avatar.jpg', $avatar);
-            Storage::disk('public')->put($save_path . '/avatar_crop.jpg', $avatar_crop);
+            // Storage::disk('public')->put($save_path . '/avatar.jpg', $avatar);
+            // Storage::disk('public')->put($save_path . '/avatar_crop.jpg', $avatar_crop);
+
+            // $tour = Article::where('id', $id)->first();
+            // $tour->avatar = $save_path . '/avatar.jpg';
+            // $tour->avatar_crop = $save_path . '/avatar_crop.jpg';
 
             $tour = Article::where('id', $id)->first();
-            $tour->avatar = $save_path . '/avatar.jpg';
-            $tour->avatar_crop = $save_path . '/avatar_crop.jpg';
+
+            $tour->avatar = Storage::disk('s3')->put($save_path . '/avatar.jpg', $avatar);
+            $tour->avatar_crop = Storage::disk('s3')->put($save_path . '/avatar_crop.jpg', $avatar_crop);
+
             $tour->save();
 
             return response()->json([
