@@ -59,9 +59,9 @@ return [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID', 'AKIAQXEWTB2GWIJYV6GK'),
             'secret' => env('AWS_SECRET_ACCESS_KEY', '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'),
-            'region' => env('AWS_DEFAULT_REGION'),
+            'region' => env('AWS_DEFAULT_REGION', 'eu-west-3'),
             'bucket' => env('AWS_BUCKET', 'excursguide'),
-            'url' => env('AWS_URL'),
+            'url' => env('AWS_URL', 'rds.eu-west-3.amazonaws.com'),
         ],
 
     ],
