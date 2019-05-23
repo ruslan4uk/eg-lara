@@ -149,8 +149,11 @@ class ArticleController extends Controller
 
             $tour = Article::where('id', $id)->first();
 
-            $tour->avatar = Storage::disk('s3')->put($save_path . '/avatar.jpg', $avatar);
-            $tour->avatar_crop = Storage::disk('s3')->put($save_path . '/avatar_crop.jpg', $avatar_crop);
+            $path = Storage::disk('s3')->put($save_path . '/avatar.jpg', $avatar);
+            $path_crop = Storage::disk('s3')->put($save_path . '/avatar_crop.jpg', $avatar_crop);
+
+            $tour->avatar = Storage::disk('s3')->url($save_path . '/avatar.jpg', $avatar);
+            $tour->avatar_crop = Storage::disk('s3')->url($save_path . '/avatar_crop.jpg', $avatar_crop);
 
             $tour->save();
 
