@@ -45,12 +45,12 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'url' => env('DATABASE_URL', 'a56959.mysql.mchost.ru'),
-            'host' => env('DB_HOST', 'a56959.mysql.mchost.ru'),
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST', 'remotemysql.com'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'a56959_egLara'),
-            'username' => env('DB_USERNAME', 'a56959_egLara'),
-            'password' => env('DB_PASSWORD', '662055ru'),
+            'database' => env('DB_DATABASE', 'ZYki0WUtl1'),
+            'username' => env('DB_USERNAME', 'ZYki0WUtl1'),
+            'password' => env('DB_PASSWORD', 'tSNqNA0Hno'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
