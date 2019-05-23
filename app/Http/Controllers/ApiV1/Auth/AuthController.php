@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\ApiV1\Auth;
 
+use App\Mail\AuthConfirm;
+use Illuminate\Support\Facades\Mail;
+
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
@@ -52,6 +55,10 @@ class AuthController extends Controller
             ]);
             
             $token = Auth::attempt($request->only(['email','password']));
+
+            // Send email
+            Mail::to($request->get('email'))->send(new AuthConfirm($user));
+
             return response()->json([
                 'success' => true,
                 'data' => $user,

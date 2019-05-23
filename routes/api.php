@@ -35,6 +35,8 @@ Route::prefix('v1')->group(function() {
     Route::post('profile/tour/multi-upload/{id}', 'ApiV1\Tour\UploadController@multiUploader');
     Route::post('profile/tour/multi-upload/{id}/delete', 'ApiV1\Tour\UploadController@multiUploaderDelete');
     Route::post('profile/tour/upload-avatar/{id}', 'ApiV1\Tour\UploadController@uploadAvatar');
+    
+    Route::post('guide/{id}/comment', 'ApiV1\Frontend\GuideController@addComment');
   });
 
 
@@ -57,9 +59,13 @@ Route::prefix('v1')->group(function() {
   // Frontend (no Auth)
   Route::get('guide/{id}', 'ApiV1\Frontend\GuideController@index');
   Route::get('guide/{id}/tour/{tour}', 'ApiV1\Frontend\GuideController@tour');
+  // Article
+  Route::get('article/{id}', 'ApiV1\Frontend\ArticleController@index');
 
   // Fronend catalog
   Route::get('country/{country}/city/{city}/guide', 'ApiV1\Frontend\CatalogController@guide');
+
+  Route::get('country/{country}/city/{city}/article', 'ApiV1\Frontend\CatalogController@article');
 
   Route::get('country/{country}/city/{city}/{category?}', 'ApiV1\Frontend\CatalogController@tour');
 
@@ -68,14 +74,21 @@ Route::prefix('v1')->group(function() {
 
   // Admin
   Route::prefix('admin')->group(function() {
+    Route::get('/city', 'ApiV1\Geo\CityController@index');
+    Route::get('/city/id', 'ApiV1\Geo\CityController@id');
     // Auth
     Route::post('/auth/logout', 'ApiV1\Auth\AuthController@logout');
     Route::post('/auth/me', 'ApiV1\Auth\AuthController@me');
     Route::post('/auth/admin-login', 'ApiV1\Admin\AuthController@login');
 
     Route::middleware(['role:admin', 'jwt:api'])->group(function() {
+      Route::get('/dashboard', 'ApiV1\Admin\DashboardController@index');
       Route::resource('/guides', 'ApiV1\Admin\GuideController');
       Route::resource('/tours', 'ApiV1\Admin\TourController');
+      Route::resource('/comments', 'ApiV1\Admin\CommentController');
+
+      Route::post('/articles/{id}/upload', 'ApiV1\Admin\ArticleController@uploadAvatar');
+      Route::resource('/articles', 'ApiV1\Admin\ArticleController');
     });
   });
 });

@@ -18,6 +18,7 @@ class CreateUserServiceTable extends Migration
             $table->integer('user_id');
             $table->integer('service_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -19,6 +19,7 @@ class CreateUserCountryTable extends Migration
             $table->integer('country_id')->nullable();
             $table->integer('city_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

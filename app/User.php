@@ -7,9 +7,13 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class User extends Authenticatable implements JWTSubject 
 {
     use Notifiable;
+    
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -38,6 +42,8 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
         'id' => 'Number',
     ];
+
+    protected $softDelete = true;
 
 
     /**
@@ -126,6 +132,18 @@ class User extends Authenticatable implements JWTSubject
     public function userCity() {
         return $this->belongsToMany('App\Geo\City', 'user_city', 'user_id', 'city_id')
                     ->select('city.id', 'city.name', 'city.iso_code', 'city.city_country');
+    }
+
+    /**
+     * Related comments
+     */
+    public function userComment() {
+        return $this->belongsToMany('App\User', 'comments', 'page_id', 'user_id')
+                    ->withPivot('text')
+                    ->whereNull('comments.deleted_at')
+                    ->where('comments.active', 2)
+                    ->orderBy('comments.created_at', 'desc')
+                    ->withTimestamps();
     }
     
 }

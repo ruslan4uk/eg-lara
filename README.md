@@ -70,3 +70,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+heroku config | grep CLEARDB_DATABASE_URL
+CLEARDB_DATABASE_URL: mysql://b9e95ecfe62f79:9c524ee5@us-cdbr-iron-east-02.cleardb.net/heroku_13e895c4ca355e4?reconnect=true

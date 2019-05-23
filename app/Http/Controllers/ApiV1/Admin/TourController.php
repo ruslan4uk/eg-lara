@@ -108,7 +108,7 @@ class TourController extends Controller
      */
     public function destroy($id)
     {
-        if(Tour::destroy($id)) {
+        if(Tour::find($id)->delete()) {
             return response()->json([
                 'success' => true
             ]);

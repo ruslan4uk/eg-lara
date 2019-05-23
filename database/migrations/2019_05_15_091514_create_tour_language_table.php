@@ -18,6 +18,7 @@ class CreateTourLanguageTable extends Migration
             $table->integer('tour_id');
             $table->integer('language_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

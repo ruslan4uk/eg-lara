@@ -18,6 +18,7 @@ class CreateUserCityTable extends Migration
             $table->integer('user_id')->nullable();
             $table->integer('city_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

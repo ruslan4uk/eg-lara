@@ -36,6 +36,7 @@ class CreateToursTable extends Migration
             $table->integer('status')->nullable();
             $table->json('properties')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

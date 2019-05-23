@@ -17,7 +17,7 @@ class GuideController extends Controller
      */
     public function index(Request $request, $id) {
 
-        $clauses = ['id' => $id, 'active' => 1];
+        $clauses = ['id' => $id, 'active' => 2];
 
         if($request->get('preview') == 1) {
             $clauses = ['id' => Auth::id()];
@@ -31,6 +31,7 @@ class GuideController extends Controller
                         ->with('userService')
                         ->with('userLanguage')
                         ->with('userCity')
+                        ->with('userComment')
                         ->with(['tour' => function($query) {
                             $query->where('active', '=', 2);
                             $query->with('tourPriceType');
@@ -44,6 +45,33 @@ class GuideController extends Controller
 
 
     /**
+     * Add comment
+     */
+    public function addComment(Request $request, $id) {
+
+        $request->validate([
+            'text' => 'required'
+        ]);
+
+        $user = User::find(Auth::id());
+
+        $user->userComment()
+             ->attach(
+                Auth::id(), [
+                    'page_id' => $id, 
+                    'text' => $request->get('text'),
+                    'active' => 2,
+                ]);
+
+        return response()->json([
+            'success' => true,
+            'data' => User::with('userComment')->findOrFail($id)
+        ]);
+
+    }
+
+
+    /**
      * Guide one tour
      * @id
      * @tour
@@ -52,7 +80,7 @@ class GuideController extends Controller
     public function tour(Request $request, $id, $tour) {
         return response()->json([
             'success' => true,
-            'data' => User::where(['id' => $id, 'active' => 1])
+            'data' => User::where(['id' => $id, 'active' => 2])
                         ->with('userService')
                         ->with('userContactType')
                         ->with(['tour' => function ($query) use ($tour) {

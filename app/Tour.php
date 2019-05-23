@@ -4,8 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Tour extends Model
 {
+
+    use SoftDeletes;
+
     protected $table = "tours";
 
     protected $fillable = ['user_id', 'name', 'city_id', 'tour_route', 'category_id', 'people_category_id',

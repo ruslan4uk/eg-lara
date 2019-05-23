@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\ApiV1\Admin;
 
-use App\User;
-use SoftDeletes;
+use App\Comment;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class GuideController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +16,13 @@ class GuideController extends Controller
      */
     public function index()
     {
-        $users = User::where('active', '>=', 0)->paginate(7);
+        $comment = Comment::with('commentAuthor')
+                            ->with('commentGuide')
+                            ->paginate(10);
 
         return response()->json([
             'success' => true,
-            'data' => $users
+            'data' => $comment
         ]);
     }
 
@@ -54,20 +55,7 @@ class GuideController extends Controller
      */
     public function show($id)
     {
-        $user = User::with('userContact')
-                    ->with('userContactType')
-                    ->with('userLicense')
-                    ->with('userService')
-                    ->with('userLanguage')
-                    ->with(['userCity' => function($q) {
-                        $q->with('cityCountry');
-                    }])
-                    ->findOrFail($id);
-
-        return response()->json([
-            'success' => true,
-            'data' => $user
-        ]);
+        //
     }
 
     /**
@@ -90,11 +78,7 @@ class GuideController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(User::where('id', $id)->update(['active' => $request->get('active')])) 
-        
-            return response()->json([
-                'success' => true
-            ]);
+        //
     }
 
     /**
@@ -105,9 +89,7 @@ class GuideController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-
-        if(User::find($id)->delete()) {
+        if(Comment::find($id)->delete()) {
             return response()->json([
                 'success' => true
             ]);

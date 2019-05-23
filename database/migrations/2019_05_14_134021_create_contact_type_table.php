@@ -20,6 +20,7 @@ class CreateContactTypeTable extends Migration
             $table->string('active')->nullable();
             $table->json('properties')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
