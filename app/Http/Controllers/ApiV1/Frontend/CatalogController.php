@@ -37,9 +37,9 @@ class CatalogController extends Controller
         return response()->json([
             'success' => true,
             'data' => User::with('userCity')
-                        // ->withCount(['tour' => function($q) {
-                        //     $q->where('active', 2);
-                        // }])
+                        ->withCount(['tour' => function($q) {
+                            $q->where('active', 2);
+                        }])
                         ->where('active', 2)
                         ->whereHas('userCity', function($q) use ($city) {
                             $q->where('city_id', $city);
