@@ -32,10 +32,10 @@ class UploadController extends Controller
             
             $avatar = Image::make($request->file('file'))->fit(320, 320)->encode('jpg', 80);
 
-            Storage::disk('public')->put($save_path . '/avatar.jpg', $avatar);
+            Storage::disk('s3')->put($save_path . '/avatar.jpg', $avatar);
 
             $tour = Tour::where('id', $id)->first();
-            $tour->avatar = $save_path . '/avatar.jpg';
+            $tour->avatar = Storage::disk('s3')->url($save_path . '/avatar.jpg', $avatar);
             $tour->save();
 
             return response()->json([
@@ -71,13 +71,13 @@ class UploadController extends Controller
                 $photo_crop = Image::make($file)
                     ->fit(320, 320)->encode('jpg', 80);
 
-                Storage::disk('public')->put($save_path . '/' . $save_name . '.jpg', $photo);
-                Storage::disk('public')->put($save_path . '/' . $save_name . '_crop.jpg', $photo_crop);
+                Storage::disk('s3')->put($save_path . '/' . $save_name . '.jpg', $photo);
+                Storage::disk('s3')->put($save_path . '/' . $save_name . '_crop.jpg', $photo_crop);
 
                 $licence = TourImage::create([
                     'tour_id'       => $id,
-                    'image'         => $save_path . '/' . $save_name . '.jpg',
-                    'image_crop'    => $save_path . '/' . $save_name . '_crop.jpg'
+                    'image'         => Storage::disk('s3')->url($save_path . '/' . $save_name . '.jpg', $photo),
+                    'image_crop'    => Storage::disk('s3')->url($save_path . '/' . $save_name . '_crop.jpg', $photo_crop)
                 ]);
             }
 
