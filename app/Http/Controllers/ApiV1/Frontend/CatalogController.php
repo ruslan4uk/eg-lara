@@ -24,7 +24,7 @@ class CatalogController extends Controller
                 ->with('tourTiming')
                 ->with('tourPriceType')
                 ->with('tourCurrency')
-                ->paginate(1);
+                ->paginate(12);
             
         return response()->json([
             'success' => true,
@@ -44,7 +44,7 @@ class CatalogController extends Controller
                         ->whereHas('userCity', function($q) use ($city) {
                             $q->where('city_id', $city);
                         })
-                        ->paginate(10)
+                        ->paginate(12)
         ]);
     }
 
@@ -52,7 +52,7 @@ class CatalogController extends Controller
         return response()->json([
             'success' => true,
             'data' => Article::where(['active' => 1, 'city_id' => $city, 'country_id' => $country])
-                        ->paginate(10)
+                        ->paginate(12)
         ]);
     }
 }
