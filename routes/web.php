@@ -15,6 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Auth::routes();
+Route::prefix('/mails')->group(function () {
 
-// Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/confirm', function () {
+        return view('mails.confirm', ['name' => 'Ruslan']);
+    });
+
+    Route::get('/password-recover', function () {
+        return view('mails.password-recover', ['name' => 'Ruslan']);
+    });
+
+});

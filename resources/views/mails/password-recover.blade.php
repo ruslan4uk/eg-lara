@@ -6,8 +6,8 @@
             font-family: 'Montserrat', sans-serif;
         }
         .background {
-            background-image: url('/images/mails/confirm.png');
-            background-position: center center;
+            background-image: url('/images/mails/password-recover.png');
+            background-position: center bottom;
             background-repeat: no-repeat;
         }
     </style>        
@@ -80,13 +80,22 @@
                                             <h2 style="color: #405089; margin-bottom: 20px; font-weight: 500; font-size: 22px;">Здравствуйте, {{ $name }}!</h2>
                                             
                                             <p style="color: #585f76; margin-bottom: 20px;">
-                                                Добро пожаловать в Excursguide — сервис, где гиды 
-                                                и туристы открывают новые границы путешествий.
+                                                Мы получили ваш запрос на смену пароля. Ссылка
+                                                действительна только 60 минут.
+                                            </p>
+
+                                            <a href="#" style="line-height: 16px; display:inline-block; padding: 10px 15px; color: #ffffff; background-color: #405089; border-radius: 25px; font-size: 16px; text-decoration: none;">Сбросить пароль</a>
+                                            
+                                            <p style="color: #585f76; margin-bottom: 20px;">
+                                                Если вы не отправляли этот запрос, просто проигнорируйте это сообщение
                                             </p>
                                             
-                                            <p style="color: #585f76; margin-bottom: 20px;">Чтобы пройти регистрацию, подтвердите свой эл.адрес.</p>
-                                            
-                                            <a href="#" style="line-height: 16px; display:inline-block; padding: 10px 15px; color: #ffffff; background-color: #405089; border-radius: 25px; font-size: 16px; text-decoration: none;">Подтвердить</a>
+                                            <hr> 
+
+                                            <p style="color: #cccccc; margin-bottom: 20px;">
+                                                Если у вас возникили проблемы при нажатии на кнопку, 
+                                                перейдите по этой <a href="#" style="color: #ff7555">ссылке</a>
+                                            </p>
                                         </td>
                                     </tr>
                                     <!-- Spacing -->
