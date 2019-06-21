@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ApiV1\Frontend;
 use App\User;
 use App\Tour;
 use App\Article;
+use App\Geo\City;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,12 +20,22 @@ class CatalogController extends Controller
             $clauses = array_merge($clauses, ['category_id' => $category]);
         }
 
+        // City / Country
+        $tour_city = City::with('cityCountry')
+            ->select('id', 'name', 'iso_code')
+            ->where('name', '!=', '')
+            ->where('id', $city)
+            ->limit(15)
+            ->first();
+
         $tours = Tour::where($clauses)
                 ->with('user')
                 ->with('tourTiming')
                 ->with('tourPriceType')
                 ->with('tourCurrency')
                 ->paginate(12);
+
+        $tours->push($tour_city);
             
         return response()->json([
             'success' => true,
