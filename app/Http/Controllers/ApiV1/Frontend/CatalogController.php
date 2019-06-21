@@ -35,7 +35,7 @@ class CatalogController extends Controller
                 ->with('tourCurrency')
                 ->paginate(12);
 
-        $tours->push($tour_city);
+        $tours->merge($tour_city);
             
         return response()->json([
             'success' => true,
