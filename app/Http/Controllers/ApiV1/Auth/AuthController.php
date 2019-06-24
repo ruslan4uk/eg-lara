@@ -88,8 +88,6 @@ class AuthController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500); // something went wrong whilst attempting to encode the token
         }
 
-        Mail::to($request->get('email'))->send(new AuthConfirm(Auth::user()));
-
         return response()->json([
             'success' => true,
             'data' => Auth::user(),
