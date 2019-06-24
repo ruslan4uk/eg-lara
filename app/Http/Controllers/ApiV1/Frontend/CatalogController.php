@@ -34,12 +34,11 @@ class CatalogController extends Controller
                 ->with('tourPriceType')
                 ->with('tourCurrency')
                 ->paginate(12);
-
-        $tours->tour_city = $tour_city;
             
         return response()->json([
             'success' => true,
-            'data' => $tours
+            'data' => $tours,
+            'city_country' => $tour_city
         ]);
     }
 

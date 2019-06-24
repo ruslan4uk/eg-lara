@@ -49,6 +49,7 @@ class HomeController extends Controller
         //     'data' => $request->all()
         // ]);
         $request->validate([
+            'avatar' => ['required'],
             'name' => ['required', 'string', 'max:255'],
             'about' => ['required', 'string', 'min:10', 'max:6000'],
             'user_language' => ['required'],
