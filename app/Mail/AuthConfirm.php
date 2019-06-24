@@ -30,7 +30,7 @@ class AuthConfirm extends Mailable
      */
     public function build()
     {
-        return $this->from('example@example.com')
+        return $this->from($this->email)
                     ->view('mails.confirm')
                     ->with([
                         'name' => $this->user->name,
