@@ -44,6 +44,15 @@ class CatalogController extends Controller
 
 
     public function guide(Request $request, $country, $city) {
+
+        // City / Country
+        $tour_city = City::with('cityCountry')
+            ->select('id', 'name', 'iso_code')
+            ->where('name', '!=', '')
+            ->where('id', $city)
+            ->limit(15)
+            ->first();
+
         return response()->json([
             'success' => true,
             'data' => User::with('userCity')
@@ -54,15 +63,26 @@ class CatalogController extends Controller
                         ->whereHas('userCity', function($q) use ($city) {
                             $q->where('city_id', $city);
                         })
-                        ->paginate(12)
+                        ->paginate(12),
+            'city_country' => $tour_city
         ]);
     }
 
     public function article(Request $request, $country, $city) {
+
+        // City / Country
+        $tour_city = City::with('cityCountry')
+            ->select('id', 'name', 'iso_code')
+            ->where('name', '!=', '')
+            ->where('id', $city)
+            ->limit(15)
+            ->first();
+            
         return response()->json([
             'success' => true,
             'data' => Article::where(['active' => 1, 'city_id' => $city, 'country_id' => $country])
-                        ->paginate(12)
+                        ->paginate(12),
+            'city_country' => $tour_city
         ]);
     }
 }
