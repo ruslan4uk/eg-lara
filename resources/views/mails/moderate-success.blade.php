@@ -6,7 +6,7 @@
             font-family: 'Montserrat', sans-serif;
         }
         .background {
-            background-image: url('https://www.excursguide.ru/images/mails/confirm.png');
+            background-image: url('https://www.excursguide.ru/images/mails/moderate-success.png');
             background-position: center center;
             background-repeat: no-repeat;
         }
@@ -80,13 +80,10 @@
                                             <h2 style="color: #405089; margin-bottom: 20px; font-weight: 500; font-size: 22px;">Здравствуйте, {{ $name }}!</h2>
                                             
                                             <p style="color: #585f76; margin-bottom: 20px;">
-                                                Добро пожаловать в Excursguide — сервис, где гиды 
-                                                и туристы открывают новые границы путешествий.
+                                                Поздравляем! Вы прошли модерацию.
                                             </p>
-                                            
-                                            <p style="color: #585f76; margin-bottom: 20px;">Чтобы пройти регистрацию, подтвердите свой эл.адрес.</p>
-                                            
-                                            <a href="#" style="line-height: 16px; display:inline-block; padding: 15px 25px; color: #ffffff; background-color: #405089; border-radius: 25px; font-size: 16px; text-decoration: none;">Подтвердить</a>
+                                                                                        
+                                            <a href="#" style="text-transform: uppercase; line-height: 16px; display:inline-block; padding: 15px 25px; color: #ffffff; background-color: #405089; border-radius: 25px; font-size: 16px; text-decoration: none;">От винта!</a>
                                         </td>
                                     </tr>
                                     <!-- Spacing -->

@@ -84,7 +84,7 @@
                                                 действительна только 60 минут.
                                             </p>
 
-                                            <a href="#" style="line-height: 16px; display:inline-block; padding: 10px 15px; color: #ffffff; background-color: #405089; border-radius: 25px; font-size: 16px; text-decoration: none;">Сбросить пароль</a>
+                                            <a href="#" style="line-height: 16px; display:inline-block; padding: 15px 25px; color: #ffffff; background-color: #405089; border-radius: 25px; font-size: 16px; text-decoration: none;">Сбросить пароль</a>
                                             
                                             <p style="color: #585f76; margin-bottom: 20px;">
                                                 Если вы не отправляли этот запрос, просто проигнорируйте это сообщение
@@ -106,7 +106,7 @@
                                     <tr>
                                         <td>
                                             <p style="text-align: center; color: #cccccc; margin-bottom: 20px;">
-                                                © 2019 Excursguide.com. Все права защищены
+                                                © 2019 Excursguide.ru. Все права защищены
                                             </p>
                                         </td>
                                     </tr>

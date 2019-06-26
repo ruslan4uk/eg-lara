@@ -25,4 +25,16 @@ Route::prefix('/mails')->group(function () {
         return view('mails.password-recover', ['name' => 'Ruslan']);
     });
 
+    Route::get('/moderate-success', function () {
+        return view('mails.moderate-success', ['name' => 'Ruslan']);
+    });
+
+    Route::get('/moderate-tour-success', function () {
+        return view('mails.moderate-tour-success', ['name' => 'Ruslan']);
+    });
+
+    Route::get('/moderate-tour', function () {
+        return view('mails.moderate-tour', ['name' => 'Ruslan']);
+    });
+
 });
