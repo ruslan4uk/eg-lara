@@ -6,7 +6,7 @@
             font-family: 'Montserrat', sans-serif;
         }
         .background {
-            background-image: url('https://www.excursguide.ru/images/mails/password-recover.png');
+            background-image: url('https://api.excursguide.ru/images/mails/password-recover.png');
             background-position: center bottom;
             background-repeat: no-repeat;
         }

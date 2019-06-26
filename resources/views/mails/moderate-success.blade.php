@@ -6,7 +6,7 @@
             font-family: 'Montserrat', sans-serif;
         }
         .background {
-            background-image: url('https://www.excursguide.ru/images/mails/moderate-success.png');
+            background-image: url('https://api.excursguide.ru/images/mails/moderate-success.png');
             background-position: center center;
             background-repeat: no-repeat;
         }
