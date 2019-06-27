@@ -97,9 +97,9 @@ class GuideController extends Controller
 
             $user = User::where('id', $id)->first();
 
-            return response()->json([
-                'data' => $user
-            ]);
+            // return response()->json([
+            //     'data' => $user->email
+            // ]);
 
             // Send email
             Mail::to($user->email)->send(new ModerateSuccess($user));
