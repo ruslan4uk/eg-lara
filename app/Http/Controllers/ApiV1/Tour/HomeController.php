@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\ApiV1\Tour;
 
+use App\Mail\ModerateTour;
+use Illuminate\Support\Facades\Mail;
+
 use Auth;
 use App\Tour;
 
@@ -115,6 +118,9 @@ class HomeController extends Controller
         $tour->tourLanguage()->sync($request->tour_language);
 
         $tour->save();
+
+        // Send email
+        Mail::to(Auth::user()->email)->send(new ModerateTour(Auth::user()));
 
         return response()->json([
             'success' => true,

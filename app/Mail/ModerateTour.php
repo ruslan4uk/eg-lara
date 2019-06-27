@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ModerateSuccess extends Mailable
+class ModerateTour extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,10 +30,10 @@ class ModerateSuccess extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.moderate-success')
-                    ->subject('Модерация аккаунта успешна пройдена')
+        return $this->view('mails.moderate-tour')
+                    ->subject('Экскурсия создана и ожидает модерацию')
                     ->with([
-                        'name' => $this->user->name,
+                        'user' => $this->user->name
                     ]);
     }
 }

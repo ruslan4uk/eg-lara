@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\ApiV1\Admin;
 
+use App\Mail\ModerateTourSuccess;
+use Illuminate\Support\Facades\Mail;
+
 use App\User;
 use App\Tour;
 
@@ -94,6 +97,15 @@ class TourController extends Controller
     public function update(Request $request, $id)
     {
         if(Tour::where('id', $id)->update(['active' => $request->get('active')])) 
+
+            $tour = Tour::where('id', $id)->with('user')->first();
+
+            return response()->json([
+                'data' => $tour
+            ]);
+
+            // Send email
+            Mail::to($tour->user()->email)->send(new ModerateTour($tour->user()));
         
             return response()->json([
                 'success' => true
