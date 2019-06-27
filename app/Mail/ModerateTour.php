@@ -33,7 +33,7 @@ class ModerateTour extends Mailable
         return $this->view('mails.moderate-tour')
                     ->subject('Экскурсия создана и ожидает модерацию')
                     ->with([
-                        'user' => $this->user->name
+                        'name' => $this->user->name
                     ]);
     }
 }
