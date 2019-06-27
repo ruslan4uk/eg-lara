@@ -95,7 +95,7 @@ class GuideController extends Controller
     {
         if(User::where('id', $id)->update(['active' => $request->get('active')])) 
 
-            $user = User::where('id', $id)->get('name', 'email');
+            $user = User::where('id', $id)->first();
 
             return response()->json([
                 'data' => $user
