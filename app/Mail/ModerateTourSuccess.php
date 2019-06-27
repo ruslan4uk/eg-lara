@@ -11,14 +11,16 @@ class ModerateTourSuccess extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected $user;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -28,6 +30,10 @@ class ModerateTourSuccess extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->view('mails.moderate-tour-success')
+                    ->subject('Экскурсия успешно прошла модерацию')
+                    ->with([
+                        'name' => $this->user->name,
+                    ]);
     }
 }

@@ -101,7 +101,7 @@ class TourController extends Controller
             $tour = Tour::where('id', $id)->with('user')->first();
 
             return response()->json([
-                'data' => $tour
+                'data' => $tour->user()
             ]);
 
             // Send email
