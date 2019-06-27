@@ -32,7 +32,7 @@ class ModerateSuccess extends Mailable
     {
         return $this->view('mails.moderate-success')
                     ->with([
-                        'name' => $this->user->name
+                        'name' => $this->user->name,
                     ]);
     }
 }

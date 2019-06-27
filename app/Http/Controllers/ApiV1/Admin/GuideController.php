@@ -95,7 +95,11 @@ class GuideController extends Controller
     {
         if(User::where('id', $id)->update(['active' => $request->get('active')])) 
 
-            $user = User::where('id', $id)->get();
+            $user = User::where('id', $id)->get('name', 'email');
+
+            return response()->json([
+                'data' => $user
+            ]);
 
             // Send email
             Mail::to($user->email)->send(new ModerateSuccess($user));
