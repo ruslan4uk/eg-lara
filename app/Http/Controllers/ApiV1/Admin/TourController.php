@@ -100,12 +100,8 @@ class TourController extends Controller
 
             $tour = Tour::where('id', $id)->with('user')->first();
 
-            return response()->json([
-                'data' => $tour->user()
-            ]);
-
             // Send email
-            Mail::to($tour->user()->email)->send(new ModerateTour($tour->user()));
+            Mail::to($tour->user->email)->send(new ModerateTour($tour->user));
         
             return response()->json([
                 'success' => true
