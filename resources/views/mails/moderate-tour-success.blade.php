@@ -83,7 +83,7 @@
                                                 Поздравляем! Ваша экскурсия прошла модерацию.
                                             </p>
                                                                                         
-                                            <a href="#" style="line-height: 16px; display:inline-block; padding: 15px 25px; color: #ffffff; background-color: #405089; border-radius: 25px; font-size: 16px; text-decoration: none;">ОТ ВИНТА!</a>
+                                            <a href="https://www.excursguide.ru" target="_blank" style="line-height: 16px; display:inline-block; padding: 13px 22px; color: #ffffff; background-color: #405089; border-radius: 25px; font-size: 16px; text-decoration: none;">ОТ ВИНТА!</a>
                                         </td>
                                     </tr>
                                     <!-- Spacing -->
