@@ -20,7 +20,7 @@ Route::prefix('v1')->group(function() {
     Route::post('/login', 'ApiV1\Auth\AuthController@login');
     Route::post('/logout', 'ApiV1\Auth\AuthController@logout');
     Route::post('/me', 'ApiV1\Auth\AuthController@me');
-    Route::get('/profile', 'ApiV1\User\HomeController')->only('index');
+    Route::get('/profile', 'ApiV1\User\HomeController@index');
   });
 
   // User cabinet (jwt token guard)
