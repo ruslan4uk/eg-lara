@@ -21,20 +21,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = new UserResource(User::where('id', Auth::id())
-                    ->with('userContact')
-                    ->with('userLicense')
-                    ->with('userService')
-                    ->with('userLanguage')
-                    ->with('userCity')
-                    ->first());
-
-        if($user) {
-            return response()->json([
-                'success' => true,
-                'data' => $user
-            ]);
+        if(Auth::check()) {
+            $user = new UserResource(User::where('id', Auth::id())
+                        ->with('userContact')
+                        ->with('userLicense')
+                        ->with('userService')
+                        ->with('userLanguage')
+                        ->with('userCity')
+                        ->first());            
+        } else {
+            $user = array();
         }
+
+        return response()->json([
+            'success' => true,
+            'data' => $user
+        ]);
     }
 
     /**

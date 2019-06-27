@@ -20,12 +20,13 @@ Route::prefix('v1')->group(function() {
     Route::post('/login', 'ApiV1\Auth\AuthController@login');
     Route::post('/logout', 'ApiV1\Auth\AuthController@logout');
     Route::post('/me', 'ApiV1\Auth\AuthController@me');
+    Route::get('/profile', 'ApiV1\User\HomeController')->only('index');
   });
 
   // User cabinet (jwt token guard)
   Route::middleware('jwt:api')->group(function() {
     // Profile route
-    Route::resource('profile', 'ApiV1\User\HomeController')->only('index', 'store');
+    Route::resource('profile', 'ApiV1\User\HomeController')->only('store');
     Route::post('profile/multi-upload', 'ApiV1\User\UploadController@multiUploader');
     Route::post('profile/multi-upload/delete', 'ApiV1\User\UploadController@multiUploaderDelete');
     Route::post('profile/upload-avatar', 'ApiV1\User\UploadController@uploadAvatar');
