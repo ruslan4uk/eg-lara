@@ -28,14 +28,15 @@ class HomeController extends Controller
                         ->with('userService')
                         ->with('userLanguage')
                         ->with('userCity')
-                        ->first());            
+                        ->first());   
+            // $user->verify = Auth::user()->email_verified_at ? true : false;     
         } else {
             $user = array();
         }
 
         return response()->json([
             'success' => true,
-            'data' => $user
+            'data' => $user,
         ]);
     }
 

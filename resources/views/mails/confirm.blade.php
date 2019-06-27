@@ -86,7 +86,7 @@
                                             
                                             <p style="color: #585f76; margin-bottom: 20px;">Чтобы пройти регистрацию, подтвердите свой эл.адрес.</p>
                                             
-                                            <a href="https://www.excursguide.ru" target="_blank" style="line-height: 16px; display:inline-block; padding: 13px 22px; color: #ffffff; background-color: #405089; border-radius: 25px; font-size: 16px; text-decoration: none;">Подтвердить</a>
+                                            <a href="https://www.excursguide.ru/auth/confirm?mail={{ $email }}&hash={{ $hash }}" target="_blank" style="line-height: 16px; display:inline-block; padding: 13px 22px; color: #ffffff; background-color: #405089; border-radius: 25px; font-size: 16px; text-decoration: none;">Подтвердить</a>
                                         </td>
                                     </tr>
                                     <!-- Spacing -->

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\ApiV1\Auth;
 
+use Carbon\Carbon;
+
 use App\Mail\AuthConfirm;
 use Illuminate\Support\Facades\Mail;
 
@@ -55,6 +57,8 @@ class AuthController extends Controller
             ]);
             
             $token = Auth::attempt($request->only(['email','password']));
+
+            $user->hash = md5($user->email . $user->created_at);
 
             // Send email
             Mail::to($request->get('email'))->send(new AuthConfirm($user));
@@ -120,6 +124,32 @@ class AuthController extends Controller
 
         return response()->json(['success' => 'true']);
     }
+
+
+    public function confirm(Request $request)
+    {
+
+        if(!$request->get('mail') || !$request->get('hash')) {
+            return response()->json([
+                'success' => false
+            ]);
+        }
+
+        $user = User::where('email', $request->get('mail'))->firstOrFail();
+        if($request->get('hash') == md5($user->email . $user->created_at)) {
+            $user->email_verified_at = Carbon::now();
+            $user->save();
+
+            return response()->json([
+                'success' => true
+            ]);
+        } else {
+            return response()->json([
+                'success' => false
+            ]);
+        }
+    }
+
 
     /**
      * Refresh a token.

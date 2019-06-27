@@ -22,6 +22,7 @@ class User extends JsonResource
             'avatar' => $this->avatar,
             'active' => $this->active,
             'status' => $this->status,
+            'verify' => $this->email_verified_at ? true : false,
             'user_service' => User::collection($this->userService)->pluck('id'),
             'user_language' => User::collection($this->userLanguage)->pluck('id'),
             'user_contact' => $this->userContact,
