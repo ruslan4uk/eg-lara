@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class AuthConfirm extends Mailable
+class ModerateSuccess extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -18,7 +18,7 @@ class AuthConfirm extends Mailable
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct()
     {
         $this->user = $user;
     }
@@ -30,9 +30,9 @@ class AuthConfirm extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.confirm')
+        return $this->view('mails.moderate-success')
                     ->with([
-                        'name' => $this->user->name,
-                    ]);;
+                        'name' => $this->user->name
+                    ]);
     }
 }

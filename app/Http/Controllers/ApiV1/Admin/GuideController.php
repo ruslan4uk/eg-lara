@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\ApiV1\Admin;
 
+use App\Mail\ModerateSuccess;
+use Illuminate\Support\Facades\Mail;
+
 use App\User;
 use SoftDeletes;
 
@@ -91,7 +94,12 @@ class GuideController extends Controller
     public function update(Request $request, $id)
     {
         if(User::where('id', $id)->update(['active' => $request->get('active')])) 
-        
+
+            $user = User::where('id', $id)->first();
+
+            // Send email
+            Mail::to($user->email)->send(new ModerateSuccess($user));
+
             return response()->json([
                 'success' => true
             ]);
