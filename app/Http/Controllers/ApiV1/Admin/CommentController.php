@@ -18,7 +18,7 @@ class CommentController extends Controller
     {
         $comment = Comment::with('commentAuthor')
                             ->with('commentGuide')
-                            ->paginate(10);
+                            ->paginate(20);
 
         return response()->json([
             'success' => true,

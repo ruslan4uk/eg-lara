@@ -20,7 +20,7 @@ class GuideController extends Controller
      */
     public function index()
     {
-        $users = User::where('active', '>=', 0)->paginate(7);
+        $users = User::where('active', '>=', 0)->paginate(20);
 
         return response()->json([
             'success' => true,
