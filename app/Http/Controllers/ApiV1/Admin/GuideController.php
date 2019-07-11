@@ -65,6 +65,7 @@ class GuideController extends Controller
                     ->with(['userCity' => function($q) {
                         $q->with('cityCountry');
                     }])
+                    ->whereNotNull('email_verified_at')
                     ->findOrFail($id);
 
         return response()->json([
