@@ -20,7 +20,9 @@ class GuideController extends Controller
      */
     public function index()
     {
-        $users = User::where('active', '>=', 0)->paginate(20);
+        $users = User::where('active', '>=', 0)
+                    ->whereNotNull('email_verified_at')
+                    ->paginate(20);
 
         return response()->json([
             'success' => true,
@@ -65,7 +67,6 @@ class GuideController extends Controller
                     ->with(['userCity' => function($q) {
                         $q->with('cityCountry');
                     }])
-                    ->whereNotNull('email_verified_at')
                     ->findOrFail($id);
 
         return response()->json([
