@@ -19,6 +19,7 @@ class User extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'about' => $this->about,
+            'role' => $this->role,
             'avatar' => $this->avatar,
             'active' => $this->active,
             'status' => $this->status,
@@ -28,7 +29,8 @@ class User extends JsonResource
             'user_contact' => $this->userContact,
             'user_license' => $this->userLicense,
             'user_city' => $this->userCity,
-            'user_city_ids'  => User::collection($this->userCity)->pluck('id')
+            'user_city_ids'  => User::collection($this->userCity)->pluck('id'),
+            'user_favorite_guide' => $this->userFavoriteGuide
         ];
     }
 }

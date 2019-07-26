@@ -21,6 +21,7 @@ Route::prefix('v1')->group(function() {
     Route::post('/logout', 'ApiV1\Auth\AuthController@logout');
     Route::post('/me', 'ApiV1\Auth\AuthController@me');
     Route::post('/confirm', 'ApiV1\Auth\AuthController@confirm');
+    Route::post('/change-password', 'ApiV1\Auth\AuthController@changePassword');
   });
 
   Route::get('/profile', 'ApiV1\User\HomeController@index');
@@ -40,6 +41,19 @@ Route::prefix('v1')->group(function() {
     Route::post('profile/tour/upload-avatar/{id}', 'ApiV1\Tour\UploadController@uploadAvatar');
     
     Route::post('guide/{id}/comment', 'ApiV1\Frontend\GuideController@addComment');
+
+    // favorite
+    Route::get('profile/favorite-guide', 'ApiV1\Favorite\HomeController@favoriteGuide');
+    Route::post('profile/favorite-guide', 'ApiV1\Favorite\HomeController@deleteFavoriteGuide');
+    Route::post('profile/favorite-guide-add', 'ApiV1\Favorite\HomeController@addFavoriteGuide');
+
+    Route::get('profile/favorite-tour', 'ApiV1\Favorite\HomeController@favoriteTour');
+    Route::post('profile/favorite-tour', 'ApiV1\Favorite\HomeController@deleteFavoriteTour');
+    Route::post('profile/favorite-tour-add', 'ApiV1\Favorite\HomeController@addFavoriteTour');
+
+    // Tourist route
+    Route::resource('trstprofile', 'ApiV1\TrstProfile\UserController')->only('store');
+
   });
 
 

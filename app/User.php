@@ -21,7 +21,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'about'
+        'name', 'email', 'password', 'about', 'role'
     ];
 
     /**
@@ -93,8 +93,6 @@ class User extends Authenticatable implements JWTSubject
      * User table user_contact -> contact_type
      */
     public function userContactType() {
-        // return $this->hasMany('App\UserContact', 'user_id', 'id')
-        //             ->hasMany('App\ContactType', 'id', 'type');
         return $this->userContact()->with('contactType');
     }
 
@@ -143,6 +141,25 @@ class User extends Authenticatable implements JWTSubject
                     ->whereNull('comments.deleted_at')
                     ->where('comments.active', 2)
                     ->orderBy('comments.created_at', 'desc')
+                    ->withTimestamps();
+    }
+
+    /**
+     * Relation table favorite user (ManyToMany)
+     */
+    public function userFavoriteGuide() {
+        return $this->belongsToMany('App\User', 'user_favorite_guide', 'user_id', 'guide_id')
+                    ->withCount(['tour' => function($q) {
+                        $q->where('active', 2);
+                    }])
+                    ->withTimestamps();
+    }
+
+    /**
+     * Relation table favorite tour (ManyToMany)
+     */
+    public function userFavoriteTour() {
+        return $this->belongsToMany('App\Tour', 'user_favorite_tour', 'user_id', 'tour_id')
                     ->withTimestamps();
     }
     

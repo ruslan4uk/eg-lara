@@ -14,7 +14,7 @@ class UpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('is_tourist')->after('about')->nullable();
+            $table->string('role')->after('about')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class UpdateUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('is_tourist');
+            $table->dropColumn('role');
         });
     }
 }

@@ -43,6 +43,7 @@ class AuthController extends Controller
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|confirmed|min:6',
                 'check_data' => 'required',
+                'role' => 'required',
             ]);
             if($validator->fails()){
                 return response()->json([
@@ -54,6 +55,7 @@ class AuthController extends Controller
                 'name' => $request->get('name'),
                 'email' => $request->get('email'),
                 'password' => Hash::make($request->get('password')),
+                'role' => $request->get('role'),
             ]);
             
             $token = Auth::attempt($request->only(['email','password']));
@@ -98,6 +100,41 @@ class AuthController extends Controller
             'token' => $token,
         ]);
 
+    }
+
+    /**
+     * Change password
+     */
+    public function changePassword(Request $request)
+    {
+        $user = JWTAuth::user();
+
+        $request->validate([
+            'current_password' => ['required', 'string', 'max:64', 'min:6'],
+            'new_password' => ['required', 'string', 'max:64', 'min:6'],
+        ]);
+
+        if (Hash::check($request->get('current_password'), $user->password)) {
+            $obj_user = JWTAuth::user(); 
+            $obj_user->password = Hash::make($request->get('new_password'));
+            $obj_user->save();
+    
+            return response()->json([
+                'status' => true,
+                'message' => 'Пароль успешно изменен',
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status' => false,
+                'errors' => [
+                    'current_password' => [
+                        '0' => 'Не правильно введен старый пароль'
+                    ]
+                ],
+            ], 422);
+        }
     }
 
     /**
