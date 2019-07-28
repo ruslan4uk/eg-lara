@@ -162,14 +162,19 @@ class AuthController extends Controller
         return response()->json(['success' => 'true']);
     }
 
-
+    /**
+     * Auth confirm
+     *
+     * @param Request $request
+     * @return void
+     */
     public function confirm(Request $request)
     {
 
         if(!$request->get('mail') || !$request->get('hash')) {
             return response()->json([
                 'success' => false
-            ]);
+            ],422);
         }
 
         $user = User::where('email', $request->get('mail'))->firstOrFail();
@@ -183,7 +188,7 @@ class AuthController extends Controller
         } else {
             return response()->json([
                 'success' => false
-            ]);
+            ],422);
         }
     }
 
