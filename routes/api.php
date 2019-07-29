@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 */
 
 Route::prefix('v1')->group(function() {
+  // Sitemap
+  Route::get('/sitemap', 'ApiV1\Sitemap\HomeController@index');
   // Auth
   Route::prefix('auth')->group(function() {
     Route::post('/register', 'ApiV1\Auth\AuthController@register');
