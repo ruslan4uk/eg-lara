@@ -88,6 +88,9 @@ Route::prefix('v1')->group(function() {
 
   Route::get('country/{country}/city/{city}/{category?}', 'ApiV1\Frontend\CatalogController@tour');
 
+  // Frontend country
+  Route::get('country/{id}', 'ApiV1\Frontend\CountryController@index');
+
   
 
 
