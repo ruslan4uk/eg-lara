@@ -56,6 +56,8 @@ class CatalogController extends Controller
         return response()->json([
             'success' => true,
             'data' => User::with('userCity')
+                        ->with('userContactType')
+                        ->with('userService')
                         ->withCount(['tour' => function($q) {
                             $q->where('active', 2);
                         }])
