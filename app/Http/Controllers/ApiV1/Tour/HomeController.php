@@ -111,7 +111,7 @@ class HomeController extends Controller
         $tour->update($request->only(['name', 'city_id', 'tour_route', 'category_id', 'people_category_id',
                                     'people_count', 'timing_id', 'price', 'currency_id', 'price_type_id',
                                     'tour_services', 'tour_more', 'tour_other', 'about', 'active' ]));
-        
+
         if(!$tour->active == 2)
             $tour->active = 1;
 
@@ -124,7 +124,7 @@ class HomeController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Тур успешно сохранен!' 
+            'message' => 'Тур успешно сохранен!'
         ]);
     }
 
@@ -181,6 +181,10 @@ class HomeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(Tour::where(['id' => $id, 'user_id' => Auth::user()->id])->delete()) {
+            return response()->json([
+                'success' => true
+            ]);
+        }
     }
 }
