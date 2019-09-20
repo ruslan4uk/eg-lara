@@ -41,7 +41,7 @@ Route::prefix('v1')->group(function() {
     Route::post('profile/tour/multi-upload/{id}', 'ApiV1\Tour\UploadController@multiUploader');
     Route::post('profile/tour/multi-upload/{id}/delete', 'ApiV1\Tour\UploadController@multiUploaderDelete');
     Route::post('profile/tour/upload-avatar/{id}', 'ApiV1\Tour\UploadController@uploadAvatar');
-    
+
     Route::post('guide/{id}/comment', 'ApiV1\Frontend\GuideController@addComment');
 
     // favorite
@@ -91,7 +91,7 @@ Route::prefix('v1')->group(function() {
   // Frontend country
   Route::get('country/{id}', 'ApiV1\Frontend\CountryController@index');
 
-  
+
 
 
   // Admin
@@ -113,4 +113,13 @@ Route::prefix('v1')->group(function() {
       Route::resource('/articles', 'ApiV1\Admin\ArticleController');
     });
   });
+
+
+  /**
+   * Messenger api route
+   */
+  Route::prefix('messenger')->group(function() {
+      Route::get('/dialogs', 'ApiV1\Messenger\DialogController@index');
+  });
+
 });

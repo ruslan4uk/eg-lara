@@ -9,10 +9,10 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable implements JWTSubject 
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
-    
+
     use SoftDeletes;
 
     /**
@@ -51,12 +51,12 @@ class User extends Authenticatable implements JWTSubject
      *
      * @return boolean
      */
-    public function isAdmin() 
-    {     
+    public function isAdmin()
+    {
         return $this->status === 999 ? true : false;
     }
-    
-    
+
+
      /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
@@ -162,5 +162,17 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany('App\Tour', 'user_favorite_tour', 'user_id', 'tour_id')
                     ->withTimestamps();
     }
-    
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function userDialogs()
+    {
+        return $this->belongsToMany('App\Models\Messenger\Dialog', 'user_messenger_dialog', 'user_id', 'dialog_uid', 'id', 'uid')
+                    ->with('dialogMessages')
+                    ->with(['dialogUsers' => function ($q) {
+//                        $q->select('dialog_messages.dialog_users.id');
+                    }]);
+    }
 }
