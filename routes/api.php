@@ -119,7 +119,18 @@ Route::prefix('v1')->group(function() {
    * Messenger api route
    */
   Route::prefix('messenger')->group(function() {
-      Route::get('/dialogs', 'ApiV1\Messenger\DialogController@index');
+//      Route::get('/dialogs', 'ApiV1\Messenger\DialogController@index');
+
+      Route::get('/messages', 'ApiV1\Messenger\MessageController@index');
+      Route::post('/messages', 'ApiV1\Messenger\MessageController@create');
+
+
+
+      Route::get('/dialogs', 'ApiV1\Messenger\MessageController@dialogs');
+
+      Route::get('/rinfo', function () {
+          return phpinfo();
+      });
   });
 
 });
