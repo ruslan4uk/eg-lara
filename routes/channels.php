@@ -11,6 +11,13 @@
 |
 */
 
-Broadcast::channel('App.User.{id}', function ($user, $id) {
+Broadcast::routes( ["prefix" => "api", 'middleware' => ['api', 'jwt.auth'] ] );
+
+Broadcast::channel('messenger.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
+});
+
+Broadcast::channel('messenger-dialog.{dialog_uid}', function ($user, $dialog_uid) {
+//    dd($user->userDialogs());
+    return $user->userDialogs->contains('uid', '=', $dialog_uid);
 });

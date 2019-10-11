@@ -43,8 +43,14 @@ class User extends Authenticatable implements JWTSubject
         'id' => 'Number',
     ];
 
+    /**
+     * Enable soft delete
+     *
+     * @var bool
+     */
     protected $softDelete = true;
 
+//    protected $appends = ['unreadMessage'];
 
     /**
      * Return has admin
@@ -163,16 +169,21 @@ class User extends Authenticatable implements JWTSubject
                     ->withTimestamps();
     }
 
-
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * Get user dialogs
      */
     public function userDialogs()
     {
-        return $this->belongsToMany('App\Models\Messenger\Dialog', 'user_messenger_dialog', 'user_id', 'dialog_uid', 'id', 'uid')
-                    ->with('dialogMessages')
-                    ->with(['dialogUsers' => function ($q) {
-//                        $q->select('dialog_messages.dialog_users.id');
-                    }]);
+        return $this->hasMany(\App\Models\Messenger\Dialog::class, 'user_id', 'id');
     }
+
+    public function unreadMessage()
+    {
+        return $this->hasMany(\App\Models\Messenger\Message::class, 'user_to_id', 'id')->where('is_read', 0)->count();
+    }
+
+//    public function getUnreadMessageAttribute()
+//    {
+//        return $this->unreadMessage()->count();
+//    }
 }

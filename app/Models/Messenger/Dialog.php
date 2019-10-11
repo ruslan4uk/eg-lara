@@ -2,6 +2,7 @@
 
 namespace App\Models\Messenger;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Dialog extends Model
@@ -9,27 +10,20 @@ class Dialog extends Model
     /**
      * @var string
      */
-    protected $table='messenger_dialog';
+    protected $table = 'messenger_dialog';
 
     /**
      * @var array
      */
-    protected $guarded=[];
+    protected $guarded = [];
 
     /**
-     * Get messages in one dialog
+     * Получаем юзера у диалога по user_id = id
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
      */
-    public function dialogMessages()
+    public function userDialogFrom()
     {
-        return $this->hasMany('App\Models\Messenger\Message', 'dialog_uid', 'uid')->latest();
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function dialogUsers()
-    {
-        return $this->belongsToMany('App\User', 'user_messenger_dialog', 'dialog_uid', 'user_id', 'uid', 'id');
+        return $this->hasOne(User::class, 'id', 'user_id')->select('id','name','avatar','role','email');
     }
 
 }

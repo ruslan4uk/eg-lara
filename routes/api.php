@@ -114,23 +114,36 @@ Route::prefix('v1')->group(function() {
     });
   });
 
+  Route::get('phpinfo', function() {
+     phpinfo();
+  });
 
   /**
    * Messenger api route
    */
   Route::prefix('messenger')->group(function() {
-//      Route::get('/dialogs', 'ApiV1\Messenger\DialogController@index');
 
-      Route::get('/messages', 'ApiV1\Messenger\MessageController@index');
+      Route::get('dialogs', 'ApiV1\Messenger\DialogController@index');                      // Список всех диалогов
+      Route::get('messages/{dialog_uid}/{last_id?}', 'ApiV1\Messenger\MessageController@show');        // Список сообщений определенного диалога
+
       Route::post('/messages', 'ApiV1\Messenger\MessageController@create');
 
+      Route::post('/new', 'ApiV1\Messenger\MessageController@newMessage');
 
+      // Upload files and photos
+      Route::post('/upload', 'ApiV1\Messenger\UploadController@uploadFiles');
 
-      Route::get('/dialogs', 'ApiV1\Messenger\MessageController@dialogs');
-
-      Route::get('/rinfo', function () {
-          return phpinfo();
-      });
+// OLD ROUTES
+//      Route::get('/messages', 'ApiV1\Messenger\MessageController@index');
+//      Route::post('/messages', 'ApiV1\Messenger\MessageController@create');
+//
+//      Route::get('/dialogs', 'ApiV1\Messenger\MessageController@dialogs');
+//
+//      Route::post('/new', 'ApiV1\Messenger\MessageController@newMessage');
   });
+
+//    DB::listen(function($query) {
+//        var_dump($query->sql, $query->bindings, $query->time);
+//    });
 
 });

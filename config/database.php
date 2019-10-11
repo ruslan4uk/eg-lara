@@ -56,7 +56,7 @@ return [
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'prefix_indexes' => true,
-            'strict' => true,
+            'strict' => false,
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
@@ -122,8 +122,9 @@ return [
         'client' => env('REDIS_CLIENT', 'predis'),
 
         'options' => [
-            'cluster' => env('REDIS_CLUSTER', 'predis'),
-            'prefix' => Str::slug(env('APP_NAME', 'laravel'), '_').'_database_',
+            'cluster' => env('REDIS_CLUSTER', 'redis'),
+            'prefix' => '',
+//            'prefix' => Str::slug(env('APP_NAME', 'laravel'), '_').'_database_',
         ],
 
         'default' => [

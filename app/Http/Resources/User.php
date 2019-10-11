@@ -30,7 +30,8 @@ class User extends JsonResource
             'user_license' => $this->userLicense,
             'user_city' => $this->userCity,
             'user_city_ids'  => User::collection($this->userCity)->pluck('id'),
-            'user_favorite_guide' => $this->userFavoriteGuide
+            'user_favorite_guide' => $this->userFavoriteGuide,
+            'unreadMessage' => $this->unreadMessage(),
         ];
     }
 }

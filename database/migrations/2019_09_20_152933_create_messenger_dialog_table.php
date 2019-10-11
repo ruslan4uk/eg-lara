@@ -15,17 +15,17 @@ class CreateMessengerDialogTable extends Migration
     {
         Schema::create('messenger_dialog', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('uid')->unique();
+            $table->string('uid');
 
-            $table->bigInteger('user_one')->unsigned();
-            $table->foreign('user_one')
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')
                 ->references('id')->on('users');
 
-            $table->bigInteger('user_two')->unsigned();
-            $table->foreign('user_two')
-                ->references('id')->on('users');
+            $table->boolean('is_visible')->default(true);
+            $table->boolean('is_archive')->default(false);
 
-            $table->timestamps();
+            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
     }
 

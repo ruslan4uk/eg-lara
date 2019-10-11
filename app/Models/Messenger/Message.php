@@ -2,6 +2,7 @@
 
 namespace App\Models\Messenger;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
@@ -9,26 +10,20 @@ class Message extends Model
     /**
      * @var string
      */
-    protected $table='messenger_messages';
+    protected $table = 'messenger_messages';
 
     /**
      * @var array
      */
-    protected $guarded=[];
+    protected $guarded = [];
+
+    protected $casts = ['attach' => 'Object'];
 
     /**
-     * Get dialog
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function messageDialog()
+    public function userMessageFrom()
     {
-        return $this->belongsTo('App\Models\Messenger\Dialog', 'uid', 'dialog_uid');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function messageUser()
-    {
-        return $this->belongsTo('App\User', 'user_id', 'id')->select('id', 'name', 'avatar');
+        return $this->hasOne(User::class, 'id', 'user_id')->select('id','name','avatar','role','email');
     }
 }

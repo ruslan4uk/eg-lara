@@ -15,26 +15,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('/mails')->group(function () {
-
-    Route::get('/confirm', function () {
-        return view('mails.confirm', ['name' => 'Ruslan']);
-    });
-
-    Route::get('/password-recover', function () {
-        return view('mails.password-recover', ['name' => 'Ruslan']);
-    });
-
-    Route::get('/moderate-success', function () {
-        return view('mails.moderate-success', ['name' => 'Ruslan']);
-    });
-
-    Route::get('/moderate-tour-success', function () {
-        return view('mails.moderate-tour-success', ['name' => 'Ruslan']);
-    });
-
-    Route::get('/moderate-tour', function () {
-        return view('mails.moderate-tour', ['name' => 'Ruslan']);
-    });
-
-});
+//Route::prefix('/mails')->group(function () {
+//
+//    Route::get('/confirm', function () {
+//        return view('mails.confirm', ['name' => 'Ruslan']);
+//    });
+//
+//    Route::get('/password-recover', function () {
+//        return view('mails.password-recover', ['name' => 'Ruslan']);
+//    });
+//
+//    Route::get('/moderate-success', function () {
+//        return view('mails.moderate-success', ['name' => 'Ruslan']);
+//    });
+//
+//    Route::get('/moderate-tour-success', function () {
+//        return view('mails.moderate-tour-success', ['name' => 'Ruslan']);
+//    });
+//
+//    Route::get('/moderate-tour', function () {
+//        return view('mails.moderate-tour', ['name' => 'Ruslan']);
+//    });
+//
+//});
