@@ -62,14 +62,6 @@ Route::prefix('v1')->group(function() {
   // helpers
   Route::prefix('helpers')->group(function() {
     Route::get('/all', 'ApiV1\Helpers\HomeController@all');
-    // Route::resource('/services', 'ApiV1\Service\HomeController')->only('index');
-    // Route::resource('/languagies', 'ApiV1\Language\HomeController')->only('index');
-    // Route::resource('/currencies', 'ApiV1\Currency\HomeController')->only('index');
-    // Route::resource('/contact_type', 'ApiV1\ContactType\HomeController')->only('index');
-    // Route::resource('/categories', 'ApiV1\Category\HomeController')->only('index');
-    // Route::resource('/people_category', 'ApiV1\PeopleCategory\HomeController')->only('index');
-    // Route::resource('/timing', 'ApiV1\Timing\HomeController')->only('index');
-    // Route::resource('/price_type', 'ApiV1\PriceType\HomeController')->only('index');
     // Geo
     Route::get('/city', 'ApiV1\Geo\CityController@index');
     Route::get('/city/id', 'ApiV1\Geo\CityController@id');
@@ -114,17 +106,13 @@ Route::prefix('v1')->group(function() {
     });
   });
 
-  Route::get('phpinfo', function() {
-     phpinfo();
-  });
-
   /**
    * Messenger api route
    */
-  Route::prefix('messenger')->group(function() {
+  Route::prefix('messenger')->middleware('jwt:api')->group(function() {
 
-      Route::get('dialogs', 'ApiV1\Messenger\DialogController@index');                      // Список всех диалогов
-      Route::get('messages/{dialog_uid}/{last_id?}', 'ApiV1\Messenger\MessageController@show');        // Список сообщений определенного диалога
+      Route::get('/dialogs', 'ApiV1\Messenger\DialogController@index');                                  // Список всех диалогов
+      Route::get('/messages/{dialog_uid}/{last_id?}', 'ApiV1\Messenger\MessageController@show');         // Список сообщений определенного диалога
 
       Route::post('/messages', 'ApiV1\Messenger\MessageController@create');
 
@@ -133,17 +121,6 @@ Route::prefix('v1')->group(function() {
       // Upload files and photos
       Route::post('/upload', 'ApiV1\Messenger\UploadController@uploadFiles');
 
-// OLD ROUTES
-//      Route::get('/messages', 'ApiV1\Messenger\MessageController@index');
-//      Route::post('/messages', 'ApiV1\Messenger\MessageController@create');
-//
-//      Route::get('/dialogs', 'ApiV1\Messenger\MessageController@dialogs');
-//
-//      Route::post('/new', 'ApiV1\Messenger\MessageController@newMessage');
   });
-
-//    DB::listen(function($query) {
-//        var_dump($query->sql, $query->bindings, $query->time);
-//    });
 
 });
