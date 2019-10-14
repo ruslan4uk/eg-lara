@@ -28,7 +28,7 @@ class CreateMessengerMessagesTable extends Migration
             $table->boolean('is_read')->default(false);
             $table->boolean('is_visible_user')->default(true);
             $table->boolean('is_visible_user_to')->default(true);
-            $table->text('message');
+            $table->text('message')->nullable();
             $table->json('attach')->nullable();
 
             $table->timestamps();
