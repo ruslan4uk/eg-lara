@@ -10,7 +10,7 @@
             background-position: center center;
             background-repeat: no-repeat;
         }
-    </style>        
+    </style>
 </head>
 
 <body>
@@ -31,7 +31,7 @@
                                     <!-- Spacing -->
                                     <tr>
                                         <td width="100%" align="cener" valign="middle" style="text-align: center; font-size: 13px;color: #282828" st-content="preheader">
-                                            <a href="http://excursguide.ru/" class="logo" style="
+                                            <a href="https://excursguide.ru/" class="logo" style="
                                                 padding: 1.125rem .625rem; border-radius: 15px;
                                                 background-color: #ff7555; font-size: 1.25rem;
                                                 font-weight: 500; text-decoration: none;
@@ -71,18 +71,18 @@
                                     <!-- Spacing -->
                                     <tr>
                                         <td width="100%" class="background" height="250px" bgcolor="#405089" valign="middle" style="border-radius: 25px 25px 0 0; background-color: #405089; text-align: center; font-size: 13px;color: #282828" st-content="preheader">
-                                            
+
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <td width="100%" bgcolor="#ffffff" style="border-radius: 0 0 25px 25px; padding: 30px; background-color: #ffffff;">
                                             <h2 style="color: #405089; margin-bottom: 20px; font-weight: 500; font-size: 22px;">Здравствуйте, {{ $name }}!</h2>
-                                            
+
                                             <p style="color: #585f76; margin-bottom: 20px;">
                                                 Ваша экскурсия добавлена на сайт и ждет модерацию
                                             </p>
-                                                                                        
+
                                         </td>
                                     </tr>
                                     <!-- Spacing -->
