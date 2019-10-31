@@ -8,6 +8,8 @@ class Language extends Model
 {
     protected $table = 'languages';
 
+    protected $guarded = [];
+
     /**
      * Relation table user_language (ManyToMany)
      */

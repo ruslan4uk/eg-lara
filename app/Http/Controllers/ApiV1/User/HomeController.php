@@ -29,7 +29,7 @@ class HomeController extends Controller
                         ->with('userLanguage')
                         ->with('userCity')
                         ->with('userFavoriteGuide')
-                        ->first());     
+                        ->first());
         } else {
             $user = array();
         }
@@ -48,9 +48,6 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        // return response()->json([
-        //     'data' => $request->all()
-        // ]);
         $request->validate([
             'avatar' => ['required'],
             'name' => ['required', 'string', 'max:255'],
@@ -80,13 +77,13 @@ class HomeController extends Controller
         }
 
         if(!$user->active == 2)
-            $user->active = 0;
+            $user->active = 1;
 
         $user->save();
 
         return response()->json([
             'success' => true,
-            'message' => 'Профиль успешно сохранен!' 
+            'message' => 'Профиль успешно сохранен!'
         ]);
     }
 

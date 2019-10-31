@@ -13,9 +13,11 @@ class CheckRole
     public function handle($request, Closure $next, $role)
     {
         $role = explode('|', $role);
+
         if (! $request->user()->isAdmin($role)) {
             return redirect('/');
         }
+
         return $next($request);
     }
 }

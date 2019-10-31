@@ -182,8 +182,4 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(\App\Models\Messenger\Message::class, 'user_to_id', 'id')->where('is_read', 0)->count();
     }
 
-//    public function getUnreadMessageAttribute()
-//    {
-//        return $this->unreadMessage()->count();
-//    }
 }

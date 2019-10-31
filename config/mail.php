@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME', 'support@excursguide.ru'),
+    'username' => env('MAIL_USERNAME', ''),
 
-    'password' => env('MAIL_PASSWORD', '662055ru'),
+    'password' => env('MAIL_PASSWORD', ''),
 
     /*
     |--------------------------------------------------------------------------

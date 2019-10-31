@@ -21,4 +21,11 @@ class Country extends Model
     public function coutryCity () {
         return $this->hasMany('App\Geo\City', 'iso_code', 'iso_code');
     }
+
+    /**
+     * Relation table city (HasMany)
+     */
+    public function countryCity () {
+        return $this->hasMany('App\Geo\City', 'iso_code', 'iso_code');
+    }
 }

@@ -13,9 +13,10 @@ class Tour extends Model
 
     protected $table = "tours";
 
-    protected $fillable = ['user_id', 'name', 'city_id', 'tour_route', 'category_id', 'people_category_id',
-                            'people_count', 'timing_id', 'price', 'currency_id', 'price_type_id',
-                            'tour_services', 'tour_more', 'tour_other', 'about', 'active'];
+//    protected $fillable = ['user_id', 'name', 'city_id', 'tour_route', 'category_id', 'people_category_id',
+//                            'people_count', 'timing_id', 'price', 'currency_id', 'price_type_id',
+//                            'tour_services', 'tour_more', 'tour_other', 'about', 'active'];
+    protected $guarded = [];
 
     /**
      * Relation table user (revers)
