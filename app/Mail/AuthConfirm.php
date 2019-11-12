@@ -21,6 +21,7 @@ class AuthConfirm extends Mailable
     public function __construct($user)
     {
         $this->user = $user;
+        $this->user->hash = md5($user->email . $user->created_at);
     }
 
     /**
@@ -36,6 +37,6 @@ class AuthConfirm extends Mailable
                         'name'  => $this->user->name,
                         'hash'  => $this->user->hash,
                         'email' => $this->user->email
-                    ]);;
+                    ]);
     }
 }

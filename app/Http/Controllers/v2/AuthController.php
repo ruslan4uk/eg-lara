@@ -1,56 +1,51 @@
 <?php
 
-namespace App\Http\Controllers\ApiV1\Auth;
-
-use Carbon\Carbon;
+namespace App\Http\Controllers\v2;
 
 use App\Mail\AuthConfirm;
-use Illuminate\Support\Facades\Mail;
-
-use Illuminate\Support\Facades\Auth;
+use App\User;
+use Auth;
+use Carbon\Carbon;
+use Validator;
 use App\Http\Controllers\Controller;
 
-use App\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
     /**
-     * Create a new AuthController instance.
+     * Get user for JWT auth
      *
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function __construct()
-    {
-        //$this->middleware('auth:api', ['except' => ['login']]);
+    public function user() {
+
+        return response()->json([
+            'data' =>  JWTAuth::user()
+        ]);
+
     }
 
-
     /**
-     * Register
+     * Register user
      *
      * @param Request $request
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
-            'check_data' => 'required',
-            'role' => 'required',
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', 'min:6'],
+            'check_data' => ['required'],
+            'role' => ['required'],
         ]);
-        if($validator->fails()){
-            return response()->json([
-                'success' => false,
-                'errors' => $validator->errors()
-            ], 422);
-        }
+
         $user = User::create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
@@ -60,10 +55,8 @@ class AuthController extends Controller
 
         $token = Auth::attempt($request->only(['email','password']));
 
-        $user->hash = md5($user->email . $user->created_at);
-
         // Send email
-        Mail::to($request->get('email'))->send(new AuthConfirm($user));
+//        Mail::to($request->get('email'))->send(new AuthConfirm($user));
 
         return response()->json([
             'success' => true,
@@ -71,7 +64,6 @@ class AuthController extends Controller
             'token' => $token,
         ], 200);
     }
-
 
     /**
      * Get a JWT via given credentials.
@@ -81,8 +73,9 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password'); // grab credentials from the request
+        $token = JWTAuth::attempt($credentials);
         try {
-            if (!$token = JWTAuth::attempt($credentials)) { // attempt to verify the credentials and create a token for the user
+            if (!$token) { // attempt to verify the credentials and create a token for the user
                 return response()->json([
                     'success' => false,
                     'errors' => [
@@ -90,6 +83,16 @@ class AuthController extends Controller
                     ]
                 ], 422);
             }
+            if (!Auth::user()->email_verified_at) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => [
+                        'email' => 'Почта не подтверждена',
+                        'code' => 12,
+                    ]
+                ], 422);
+            }
+
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500); // something went wrong whilst attempting to encode the token
         }
@@ -100,54 +103,6 @@ class AuthController extends Controller
             'token' => $token,
         ]);
 
-    }
-
-    /**
-     * Change password
-     */
-    public function changePassword(Request $request)
-    {
-        $user = JWTAuth::user();
-
-        $request->validate([
-            'current_password' => ['required', 'string', 'max:64', 'min:6'],
-            'new_password' => ['required', 'string', 'max:64', 'min:6'],
-        ]);
-
-        if (Hash::check($request->get('current_password'), $user->password)) {
-            $obj_user = JWTAuth::user();
-            $obj_user->password = Hash::make($request->get('new_password'));
-            $obj_user->save();
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Пароль успешно изменен',
-            ]);
-        }
-        else
-        {
-            return response()->json([
-                'status' => false,
-                'errors' => [
-                    'current_password' => [
-                        '0' => 'Не правильно введен старый пароль'
-                    ]
-                ],
-            ], 422);
-        }
-    }
-
-    /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function me()
-    {
-        return response()->json([
-            'succcess' => true,
-            'data' => JWTAuth::user()
-        ]);
     }
 
     /**
@@ -163,6 +118,41 @@ class AuthController extends Controller
     }
 
     /**
+     * Change user password
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required', 'string', 'max:64', 'min:6'],
+            'new_password' => ['required', 'string', 'max:64', 'min:6'],
+        ]);
+
+        if (Hash::check($request->get('current_password'), Auth::user()->password)) {
+            $obj_user = Auth::user();
+            $obj_user->password = Hash::make($request->get('new_password'));
+            $obj_user->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Пароль успешно изменен',
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'errors' => [
+                    'current_password' => [
+                        '0' => 'Не правильно введен старый пароль'
+                    ]
+                ],
+            ], 422);
+        }
+    }
+
+
+    /**
      * Auth confirm
      *
      * @param Request $request
@@ -170,14 +160,8 @@ class AuthController extends Controller
      */
     public function confirm(Request $request)
     {
-
-        if(!$request->get('mail') || !$request->get('hash')) {
-            return response()->json([
-                'success' => false
-            ],422);
-        }
-
         $user = User::where('email', $request->get('mail'))->firstOrFail();
+
         if($request->get('hash') == md5($user->email . $user->created_at)) {
             $user->email_verified_at = Carbon::now();
             $user->save();
@@ -192,6 +176,22 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Resend email for user confirm email address
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function confirmSend(Request $request) {
+
+        $user = User::where('email', $request->get('email'))->firstOrFail();
+
+//        Mail::to($request->get('email'))->send(new AuthConfirm($user));
+
+        return response()->json([
+            'success' => true
+        ], 200);
+    }
 
     /**
      * Refresh a token.

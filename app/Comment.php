@@ -18,7 +18,7 @@ class Comment extends Model
      * Relation users (Author)
      */
     public function commentAuthor() {
-        return $this->hasOne('App\User', 'id', 'user_id');
+        return $this->hasOne('App\User', 'id', 'user_id')->select('id', 'name','avatar');
     }
 
     /**

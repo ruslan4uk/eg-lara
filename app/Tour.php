@@ -18,6 +18,10 @@ class Tour extends Model
 //                            'tour_services', 'tour_more', 'tour_other', 'about', 'active'];
     protected $guarded = [];
 
+    protected $casts = [
+
+    ];
+
     /**
      * Relation table user (revers)
      */
@@ -81,4 +85,7 @@ class Tour extends Model
         return $this->hasMany('App\Geo\City', 'id', 'city_id')->select('id', 'name', 'iso_code')->with('cityCountry');
     }
 
+    public function tourCityNew() {
+        return $this->hasMany('App\Geo\City', 'id', 'city_id')->select('id', 'name', 'iso_code', 'city_country');
+    }
 }

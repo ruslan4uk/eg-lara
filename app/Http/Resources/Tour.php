@@ -20,6 +20,7 @@ class Tour extends JsonResource
             'avatar' => $this->avatar,
             'country_id' => $this->country_id,
             'city_id' => $this->city_id,
+            'tour_city_new' => $this->tourCityNew,
             'tour_route' => $this->tour_route,
             'category_id' => $this->category_id,
             //'category' => $this->tourCategory,

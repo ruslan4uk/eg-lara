@@ -25,4 +25,8 @@ class City extends Model
     public function cityCountry() {
         return $this->belongsTo('App\Geo\Country', 'iso_code', 'iso_code')->select('id', 'name', 'iso_code');
     }
+
+    public function cityCountryNew() {
+        return $this->belongsTo('App\Geo\Country', 'iso_code', 'iso_code')->select('id', 'name', 'iso_code');
+    }
 }
