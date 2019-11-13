@@ -11,7 +11,6 @@ class TourController extends Controller
     {
         $tour = \App\Tour::where([
             'id' => $tour_id,
-            'user_id' => $user_id,
             'active' => 2
             ])
             ->with('tourLanguage')
@@ -24,9 +23,20 @@ class TourController extends Controller
             ->with('tourImage')
             ->firstOrFail();
 
+        $user = \App\User::where('id', $tour->user_id)
+            ->with(['userCity' => function($q) {
+                $q->with('cityCountry');
+            }])
+            ->with('userLanguage')
+            ->with('userService')
+            ->with('userContact')
+            ->where('active', 2)
+            ->firstOrFail();
+
         return response()->json([
             'success' => true,
-            'data' => $tour
+            'data' => $tour,
+            'user' => $user
         ], 200);
     }
 }
