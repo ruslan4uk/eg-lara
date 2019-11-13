@@ -70,6 +70,8 @@ Route::prefix('/front')->group(function() {
    Route::get('/user/{id}', 'Frontend\UserController@showUserInfo');
    Route::get('/user/{id}/excursions', 'Frontend\UserController@showUserTours');
    Route::get('/user/{id}/responses', 'Frontend\UserController@showUserResponses');
+
+   Route::get('/excursion/{user_id}/{tour_id}', 'Frontend\TourController@getUserExcursion');
 });
 
 
