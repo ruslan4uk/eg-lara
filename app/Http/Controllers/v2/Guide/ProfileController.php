@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\v2\Guide;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Search;
 use App\UserLicense;
 use Illuminate\Http\Request;
 

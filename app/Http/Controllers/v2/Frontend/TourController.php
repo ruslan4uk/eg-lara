@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 
 class TourController extends Controller
 {
-    public function getUserExcursion(Request $request, $user_id, $tour_id)
+    public function getUserExcursion(Request $request, $id)
     {
         $tour = \App\Tour::where([
-            'id' => $tour_id,
+            'id' => $id,
             'active' => 2
             ])
             ->with('tourLanguage')

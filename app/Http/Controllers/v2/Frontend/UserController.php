@@ -4,6 +4,7 @@ namespace App\Http\Controllers\v2\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -52,15 +53,41 @@ class UserController extends Controller
         ],200);
     }
 
+    /**
+     * Show user responses
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function showUserResponses(Request $request, $id)
     {
         $responses = \App\Comment::with('commentAuthor')
             ->where(['page_id' => $id, 'active' => 2])
-            ->paginate(10);
+            ->paginate(20);
 
         return response()->json([
             'success' => true,
             'data' => $responses
         ], 200);
+    }
+
+    public function saveUserResponses(Request $request, $id)
+    {
+        $response = \App\Comment::create([
+            'page_id' => $id,
+            'user_id' => Auth::id(),
+            'text' => $request->get('review'),
+            'active' => 2
+        ]);
+
+        $data = \App\Comment::with('commentAuthor')
+            ->where(['id' => $response->id, 'active' => 2])
+            ->firstOrFail();
+
+        return response()->json([
+           'success' => true,
+           'data' => $data
+        ]);
     }
 }

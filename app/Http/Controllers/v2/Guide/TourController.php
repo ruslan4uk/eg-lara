@@ -5,7 +5,7 @@ namespace App\Http\Controllers\v2\Guide;
 use App\Geo\City;
 use App\Helpers\Uploader\ImageUploader;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Tour as TourResource;
+use App\Http\Resources\v2\Guide\Tour as TourResource;
 use App\Tour;
 use App\TourImage;
 use Illuminate\Http\Request;

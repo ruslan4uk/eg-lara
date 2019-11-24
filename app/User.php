@@ -136,7 +136,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function userCity() {
         return $this->belongsToMany('App\Geo\City', 'user_city', 'user_id', 'city_id')
-                    ->select('city.id', 'city.name', 'city.iso_code', 'city.city_country');
+                    ->select('city.id', 'city.name', 'city.region', 'city.iso_code', 'city.city_country');
     }
 
     /**

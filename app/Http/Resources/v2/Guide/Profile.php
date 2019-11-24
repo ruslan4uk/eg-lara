@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\v2\Guide;
 
+use App\Http\Resources\Search;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Profile extends JsonResource
@@ -29,6 +30,7 @@ class Profile extends JsonResource
             'user_contact' => $this->userContact,
             'user_license' => $this->userLicense,
             'user_city' => $this->userCity,
+            'user_city2' => Search::collection($this->userCity),
             'user_city_ids'  => $this::collection($this->userCity)->pluck('id'),
             'user_favorite_guide' => $this->userFavoriteGuide,
             'unreadMessage' => $this->unreadMessage(),

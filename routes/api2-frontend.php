@@ -69,11 +69,12 @@ Route::prefix('/front')->group(function() {
 
    Route::get('/user/{id}', 'Frontend\UserController@showUserInfo');
    Route::get('/user/{id}/excursions', 'Frontend\UserController@showUserTours');
+
    Route::get('/user/{id}/responses', 'Frontend\UserController@showUserResponses');
+   Route::post('/user/{id}/responses', 'Frontend\UserController@saveUserResponses');
 
-   Route::get('/excursion/{user_id}/{tour_id}', 'Frontend\TourController@getUserExcursion');
+   Route::get('/excursion/{id}', 'Frontend\TourController@getUserExcursion');
+
+   Route::get('/get/tour/{country}/{city}', 'Frontend\SearchController@searchTour');
+   Route::get('/get/guide/{country}/{city}', 'Frontend\SearchController@searchGuide');
 });
-
-
-
-

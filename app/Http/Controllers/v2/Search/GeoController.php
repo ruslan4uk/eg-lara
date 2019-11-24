@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\v2\Search;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Search as SearchResource;
 use Illuminate\Http\Request;
 
 use App\Geo\City;
@@ -17,21 +18,21 @@ class GeoController extends Controller
      */
     public function searchCity(Request $request)
     {
-        if (!auth()->check()) { return response()->json(['success' => false], 422); }
-
         $citySearch = City::where(function($q) use ($request) {
                 if($request->get('query'))
                     $q->where('name', 'LIKE', $request->get('query').'%');
                 if($request->get('sel'))
-                    $q->orWhereIn('id', $request->get('sel'));
+                    $q->orWhereIn('id', (array)$request->get('sel'));
             })
-            ->select('id', 'name', 'locale', 'iso_code', 'city_country', 'region')
+//            ->with('cityCountryNew')
             ->limit(10)
             ->get();
 
+        $citySearchResource = SearchResource::collection($citySearch);
+
         return response()->json([
             'success' => true,
-            'data' => $citySearch
+            'data' => $citySearchResource
         ], 200);
     }
 }
