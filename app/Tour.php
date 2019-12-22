@@ -88,4 +88,9 @@ class Tour extends Model
     public function tourCityNew() {
         return $this->hasMany('App\Geo\City', 'id', 'city_id')->select('id', 'name', 'iso_code', 'city_country');
     }
+
+    public function tourFavorite()
+    {
+        return $this->belongsTo('App\FavoriteTour', 'id', 'tour_id');
+    }
 }

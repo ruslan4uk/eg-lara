@@ -24,8 +24,15 @@ class AuthController extends Controller
      */
     public function user() {
 
+        $user = JWTAuth::user();
+
+        $favorite_tour = \App\FavoriteTour::where('user_id', 11)
+            ->get();
+
+        $user->favorite_tour = $favorite_tour->pluck('tour_id')->all();
+
         return response()->json([
-            'data' =>  JWTAuth::user()
+            'data' =>  $user
         ]);
 
     }
@@ -56,7 +63,7 @@ class AuthController extends Controller
         $token = Auth::attempt($request->only(['email','password']));
 
         // Send email
-//        Mail::to($request->get('email'))->send(new AuthConfirm($user));
+        Mail::to($request->get('email'))->send(new AuthConfirm($user));
 
         return response()->json([
             'success' => true,
@@ -186,7 +193,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->get('email'))->firstOrFail();
 
-//        Mail::to($request->get('email'))->send(new AuthConfirm($user));
+        Mail::to($request->get('email'))->send(new AuthConfirm($user));
 
         return response()->json([
             'success' => true

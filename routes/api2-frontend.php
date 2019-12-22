@@ -27,6 +27,7 @@ Route::get('/init', 'InitController@init');
  */
 Route::prefix('/search')->group(function() {
     Route::get('/city', 'Search\GeoController@searchCity');
+    Route::get('/city-list/{country_id}', 'Search\GeoController@cityList');
 });
 
 /**
@@ -45,7 +46,7 @@ Route::prefix('/auth')->group(function() {
 /**
  * Guide profile get, update, upload
  */
-Route::prefix('/profile')->group(function() {
+Route::prefix('/profile')->middleware('jwt:api')->group(function() {
     Route::get('/', 'Guide\ProfileController@index');
     Route::post('/', 'Guide\ProfileController@store');
     Route::post('/upload-avatar', 'Guide\ProfileController@uploadAvatar');
@@ -59,6 +60,11 @@ Route::prefix('/profile')->group(function() {
     Route::post('/tours/uploader/avatar/{id}', 'Guide\TourController@uploadAvatar');
     Route::post('/tours/uploader/multi/{id}', 'Guide\TourController@uploadMulti');
     Route::post('/tours/uploader/multi/{id}/delete', 'Guide\TourController@uploadMultiDelete');
+
+    /**
+     * Profile favorite list
+     */
+    Route::get('/favorite/list', 'Frontend\FavoriteController@getFavoriteList');
 });
 
 /**
@@ -77,4 +83,33 @@ Route::prefix('/front')->group(function() {
 
    Route::get('/get/tour/{country}/{city}', 'Frontend\SearchController@searchTour');
    Route::get('/get/guide/{country}/{city}', 'Frontend\SearchController@searchGuide');
+
+   // Favorite routes
+   Route::post('/favorite/add', 'Frontend\FavoriteController@addFavoriteTour');
+   Route::post('/favorite/delete', 'Frontend\FavoriteController@deleteFavoriteTour');
 });
+
+
+/**
+ * Messenger api route
+ * ->middleware('jwt:api')
+ */
+Route::prefix('messenger')->group(function() {
+
+    Route::get('/unread', 'Messenger\MessageController@unreadCount');
+
+    Route::middleware('jwt:api')->group(function() {
+        Route::get('/dialogs', 'Messenger\DialogController@index');                                  // Список всех диалогов
+        Route::get('/messages/{dialog_uid}/{last_id?}', 'Messenger\MessageController@show');         // Список сообщений определенного диалога
+
+        Route::post('/send', 'Messenger\MessageController@create');
+
+        Route::post('/new', 'Messenger\MessageController@create');
+
+        // Upload files and photos
+        Route::post('/upload', 'Messenger\UploadController@uploadFiles');
+    })  ;
+
+});
+
+Route::get('sitemap', 'Frontend\SitemapController@index');
