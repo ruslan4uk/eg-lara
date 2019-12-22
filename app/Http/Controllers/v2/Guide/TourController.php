@@ -10,6 +10,7 @@ use App\Tour;
 use App\TourImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class TourController extends Controller
 {
@@ -132,7 +133,7 @@ class TourController extends Controller
         $tour->save();
 
         // Send email
-//        Mail::to(Auth::user()->email)->send(new ModerateTour(Auth::user()));
+        Mail::to(Auth::user()->email)->send(new ModerateTour(Auth::user()));
 
         return response()->json([
             'success' => true,

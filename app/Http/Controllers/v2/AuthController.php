@@ -167,7 +167,7 @@ class AuthController extends Controller
      */
     public function confirm(Request $request)
     {
-        $user = User::where('email', $request->get('mail'))->firstOrFail();
+        $user = User::where('mail', $request->get('mail'))->firstOrFail();
 
         if($request->get('hash') == md5($user->email . $user->created_at)) {
             $user->email_verified_at = Carbon::now();
