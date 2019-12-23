@@ -54,6 +54,8 @@ class GeoController extends Controller
             ->orderBy('name')
             ->paginate(240);
 
+        if(count($cityList) < 1) return response()->json(['success' => false], 422);
+
         return response()->json([
             'success' => true,
             'data' => $cityList
