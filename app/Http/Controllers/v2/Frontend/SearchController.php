@@ -51,6 +51,9 @@ class SearchController extends Controller
             ->withCount(['tour' => function ($q) {
                 $q->where('active', 2);
             }])
+//            ->withCount(['userComment' => function ($q) {
+//                $q->where('active', 2);
+//            }])
             ->withCount('userComment')
             ->whereHas('userCity', function ($q) use ($city) {
                 $q->where('city_id', $city);

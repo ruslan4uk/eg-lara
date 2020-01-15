@@ -163,7 +163,7 @@ class AuthController extends Controller
      * Auth confirm
      *
      * @param Request $request
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function confirm(Request $request)
     {
@@ -176,11 +176,12 @@ class AuthController extends Controller
             return response()->json([
                 'success' => true
             ]);
-        } else {
-            return response()->json([
-                'success' => false
-            ],422);
         }
+
+        return response()->json([
+            'success' => false
+        ],422);
+
     }
 
     /**

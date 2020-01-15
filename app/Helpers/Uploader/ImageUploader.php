@@ -79,10 +79,10 @@ class ImageUploader
     public function originalAndCrop()
     {
         $image = Image::make($this->file)
-            ->resize(1200, null, function ($constraint) { $constraint->aspectRatio(); } )
-            ->encode('jpg', 90);
+            ->fit(1200, 800) //, function ($constraint) { $constraint->aspectRatio(); } )
+            ->encode('jpg', 100);
 
-        $crop = Image::make($this->file)->fit(320, 320)->encode('jpg', 90);
+        $crop = Image::make($this->file)->fit(320, 320)->encode('jpg', 100);
 
         Storage::disk('s3')->put($this->path .  $this->fileName . '.jpg', $image);
         Storage::disk('s3')->put($this->path .  $this->fileName . '_crop.jpg', $crop);

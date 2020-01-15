@@ -6,6 +6,7 @@ use App\Geo\City;
 use App\Helpers\Uploader\ImageUploader;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\v2\Guide\Tour as TourResource;
+use App\Mail\ModerateTour;
 use App\Tour;
 use App\TourImage;
 use Illuminate\Http\Request;
