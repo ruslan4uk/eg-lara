@@ -6,7 +6,7 @@
             font-family: 'Montserrat', sans-serif;
         }
         .background {
-            background-image: url('https://api.excusguide.ru/images/mails/confirm.png');
+            background-image: url('https://api.excursguide.ru/images/mails/confirm.png');
             background-position: center center;
             background-repeat: no-repeat;
         }
@@ -103,7 +103,7 @@
                                             </td>
 
                                             <td width="35%">
-                                                <img src="https://api.excusguide.ru/images/mails/persons/4.png" alt="" width="100%">
+                                                <img src="https://api.excursguide.ru/images/mails/persons/4.png" alt="" width="100%">
                                             </td>
                                         </tr>
                                         </tbody>
@@ -115,7 +115,7 @@
                                         <tbody>
                                         <tr>
                                             <td width="40%">
-                                                <img src="https://api.excusguide.ru/images/mails/persons/5.png" alt="" width="100%">
+                                                <img src="https://api.excursguide.ru/images/mails/persons/5.png" alt="" width="100%">
                                             </td>
 
                                             <td width="60%">
