@@ -6,6 +6,8 @@ use App\Geo\City;
 use App\Helpers\Uploader\ImageUploader;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\v2\Guide\Tour as TourResource;
+use App\Jobs\MailSend;
+use App\Mail\AuthConfirm;
 use App\Mail\ModerateTour;
 use App\Tour;
 use App\TourImage;
@@ -133,8 +135,13 @@ class TourController extends Controller
 
         $tour->save();
 
-        // Send email
-        Mail::to(Auth::user()->email)->send(new ModerateTour(Auth::user()));
+        /*
+         * Refactoring!
+         * Mail send to queue
+         * Old code: Mail::to(Auth::user()->email)->send(new ModerateTour(Auth::user()));
+         * TODO: Refactor this comment
+         */
+        MailSend::dispatch(['email' => Auth::user()->email], new ModerateTour(Auth::user()))->onConnection('database');
 
         return response()->json([
             'success' => true,

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\v2;
 
+use App\Jobs\MailSend;
 use App\Mail\AuthConfirm;
+use App\Mail\MailAbstract;
 use App\User;
 use Auth;
 use Carbon\Carbon;
@@ -11,7 +13,6 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -62,8 +63,38 @@ class AuthController extends Controller
 
         $token = Auth::attempt($request->only(['email','password']));
 
-        // Send email
-        Mail::to($request->get('email'))->send(new AuthConfirm($user));
+        /*
+         * Refactoring!
+         * Mail send to queue
+         * Old code: Mail::to($request->get('email'))->send(new AuthConfirm($user));
+         * TODO: Refactor this comment
+         */
+        MailSend::dispatch(['email' => $request->get('email')], new AuthConfirm($user))->onConnection('database');
+
+        /**
+         * guide and tourist queue email sender
+         */
+        if($user->role == 'guide') {
+            // Guide -> MailThanks
+            MailSend::dispatch(['email' => $request->get('email')], new MailAbstract($user->id, $user->name, 'mails.guide.mail-queue-2'))
+                ->onConnection('database');
+
+            // Guide -> MailFillOutProfile
+            MailSend::dispatch(['email' => $request->get('email')], new MailAbstract($user->id, $user->name, 'mails.guide.mail-queue-3'))
+                ->onConnection('database')->delay(now()->addWeeks(5));
+
+            // Guide -> MailAdvantage
+            MailSend::dispatch(['email' => $request->get('email')], new MailAbstract($user->id, $user->name, 'mails.guide.mail-queue-4'))
+                ->onConnection('database')->delay(now()->addWeeks(7));
+        } else {
+            // Tourist -> MailThanks
+            MailSend::dispatch(['email' => $request->get('email')], new MailAbstract($user->id, $user->name, 'mails.tourist.mail-queue-2'))
+                ->onConnection('database');
+
+            // Tourist -> MailAdvantage
+            MailSend::dispatch(['email' => $request->get('email')], new MailAbstract($user->id, $user->name, 'mails.tourist.mail-queue-3'))
+                ->onConnection('database')->delay(now()->addWeeks(1));
+        }
 
         return response()->json([
             'success' => true,
@@ -194,7 +225,13 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->get('email'))->firstOrFail();
 
-        Mail::to($request->get('email'))->send(new AuthConfirm($user));
+        /*
+         * Refactoring!
+         * Mail send to queue
+         * Old code: Mail::to($request->get('email'))->send(new AuthConfirm($user));
+         * TODO: Refactor this comment
+         */
+        MailSend::dispatch(['email' => $request->get('email')], new AuthConfirm($user))->onConnection('database');
 
         return response()->json([
             'success' => true

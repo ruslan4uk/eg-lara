@@ -87,6 +87,10 @@ Route::prefix('/front')->group(function() {
    // Favorite routes
    Route::post('/favorite/add', 'Frontend\FavoriteController@addFavoriteTour');
    Route::post('/favorite/delete', 'Frontend\FavoriteController@deleteFavoriteTour');
+
+   // Orders
+   Route::post('/orders/{id}', 'Frontend\OrderController@store');
+   Route::post('/orders/{id}/confirm', 'Frontend\OrderController@confirm');
 });
 
 
@@ -108,8 +112,9 @@ Route::prefix('messenger')->group(function() {
 
         // Upload files and photos
         Route::post('/upload', 'Messenger\UploadController@uploadFiles');
-    })  ;
+    });
 
 });
 
 Route::get('sitemap', 'Frontend\SitemapController@index');
+
