@@ -6,7 +6,7 @@
             font-family: 'Montserrat', sans-serif;
         }
         .background {
-            background-image: url('{{ asset('images/mails/confirm.png')  }}');
+            background-image: url('https://api.excursguide.ru/images/mails/confirm.png');
             background-position: center center;
             background-repeat: no-repeat;
         }
@@ -104,7 +104,7 @@
                                             </td>
 
                                             <td width="35%">
-                                                <img src="{{ asset('images/mails/persons/2.jpeg')  }}" alt="" width="100%">
+                                                <img src="https://api.excursguide.ru/images/mails/persons/2.jpeg" alt="" width="100%">
                                             </td>
                                         </tr>
                                         </tbody>

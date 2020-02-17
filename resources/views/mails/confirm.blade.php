@@ -6,7 +6,7 @@
             font-family: 'Montserrat', sans-serif;
         }
         .background {
-            background-image: url('{{ asset('images/mails/confirm.png')  }}');
+            background-image: url('https://api.excusguide.ru/images/mails/confirm.png');
             background-position: center center;
             background-repeat: no-repeat;
         }
@@ -84,7 +84,7 @@
                                                 <tbody>
                                                 <tr>
                                                     <td width="40%">
-                                                        <img src="{{ asset('images/mails/persons/confirm.jpg')  }}" alt="" width="100%">
+                                                        <img src="https://api.excusguide.ru/images/mails/persons/confirm.jpg" alt="" width="100%">
                                                     </td>
 
                                                     <td width="60%">
@@ -115,21 +115,6 @@
                                                 команда <a href="https://excursguide.ru" style="color: #405089;">Excursguide.ru</a>
                                             </p>
 
-
-{{--                                            <div style="text-align: center">--}}
-{{--                                                <img src="{{ asset('images/mails/persons/confirm.jpg')  }}" alt="" width="60%">--}}
-{{--                                            </div>--}}
-{{--                                            <h2 style="color: #405089; margin-bottom: 20px; font-weight: 500; font-size: 22px;">Здравствуйте, {{ $name }}!</h2>--}}
-{{--                                            <p style="color: #585f76; margin-bottom: 20px;">--}}
-{{--                                                Меня зовут Мила Лукьянова и я основатель проекта--}}
-{{--                                                <a href="https://excursguide.ru" style="color: #405089;">Excursguide.ru</a>.--}}
-{{--                                            </p>--}}
-{{--                                            <p style="color: #585f76; margin-bottom: 20px;">--}}
-{{--                                                Добро пожаловать к нам в Excursguide — сервис, где гиды и туристы открывают новые границы путешествий.--}}
-{{--                                            </p>--}}
-{{--                                            <p style="color: #585f76; margin-bottom: 20px;">Чтобы пройти регистрацию, подтвердите свой эл.адрес.</p>--}}
-{{--                                            <a href="https://excursguide.ru/auth/confirm?mail={{ $email }}&hash={{ $hash }}" target="_blank" style="line-height: 16px; display:inline-block; padding: 13px 22px; color: #ffffff; background-color: #405089; border-radius: 25px; font-size: 16px; text-decoration: none;">Подтвердить</a>--}}
-{{--                                            --}}
                                         </td>
                                     </tr>
                                     <!-- Spacing -->
