@@ -13,7 +13,7 @@ class FavoriteController extends Controller
     public function getFavoriteList(Request $request)
     {
         $favorite_tour = \App\Tour::whereHas('tourFavorite', function ($q) {
-                $q->where('user_id', 11);
+                $q->where('user_id', Auth::id());
             })
             ->get();
 

@@ -84,7 +84,7 @@
                                                 <tbody>
                                                 <tr>
                                                     <td width="40%">
-                                                        <img src="https://api.excusguide.ru/images/mails/persons/confirm.jpg" alt="" width="100%">
+                                                        <img src="https://api.excursguide.ru/images/mails/persons/confirm.jpg" alt="" width="100%">
                                                     </td>
 
                                                     <td width="60%">

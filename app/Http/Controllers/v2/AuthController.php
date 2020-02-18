@@ -27,7 +27,7 @@ class AuthController extends Controller
 
         $user = JWTAuth::user();
 
-        $favorite_tour = \App\FavoriteTour::where('user_id', 11)
+        $favorite_tour = \App\FavoriteTour::where('user_id', Auth::id())
             ->get();
 
         $user->favorite_tour = $favorite_tour->pluck('tour_id')->all();
@@ -77,7 +77,7 @@ class AuthController extends Controller
         if($user->role == 'guide') {
             // Guide -> MailThanks
             MailSend::dispatch(['email' => $request->get('email')], new MailAbstract($user->id, $user->name, 'mails.guide.mail-queue-2'))
-                ->onConnection('database');
+                ->onConnection('database')->delay(now()->addMinutes(15));
 
             // Guide -> MailFillOutProfile
             MailSend::dispatch(['email' => $request->get('email')], new MailAbstract($user->id, $user->name, 'mails.guide.mail-queue-3'))
@@ -89,7 +89,7 @@ class AuthController extends Controller
         } else {
             // Tourist -> MailThanks
             MailSend::dispatch(['email' => $request->get('email')], new MailAbstract($user->id, $user->name, 'mails.tourist.mail-queue-2'))
-                ->onConnection('database');
+                ->onConnection('database')->delay(now()->addMinutes(15));
 
             // Tourist -> MailAdvantage
             MailSend::dispatch(['email' => $request->get('email')], new MailAbstract($user->id, $user->name, 'mails.tourist.mail-queue-3'))

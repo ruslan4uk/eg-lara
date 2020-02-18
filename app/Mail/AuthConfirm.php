@@ -11,7 +11,15 @@ class AuthConfirm extends Mailable
 {
     use Queueable, SerializesModels;
 
+    /**
+     * @var
+     */
     protected $user;
+
+    /**
+     * @var
+     */
+    protected $hash;
 
     /**
      * Create a new message instance.
@@ -21,7 +29,8 @@ class AuthConfirm extends Mailable
     public function __construct($user)
     {
         $this->user = $user;
-        $this->user->hash = md5($user->email . $user->created_at);
+//        $this->user->hash = md5($user->email . $user->created_at);
+        $this->hash = md5($user->email . $user->created_at);
     }
 
     /**
@@ -35,7 +44,7 @@ class AuthConfirm extends Mailable
                     ->subject('Спасибо за регистрацию')
                     ->with([
                         'name'  => $this->user->name,
-                        'hash'  => $this->user->hash,
+                        'hash'  => $this->hash,
                         'email' => $this->user->email
                     ]);
     }
