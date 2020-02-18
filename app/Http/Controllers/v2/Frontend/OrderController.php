@@ -26,9 +26,9 @@ class OrderController extends Controller
         ]);
 
         // Get guide email address
-        $guide = User::with(['tour' => function ($q)use($id) {
-            $q->where('id', $id);
-        }])->first();
+        $guide = User::whereHas('tour', function ($q) use ($id) {
+           $q->where('id', $id);
+        })->first();
 
         $order = Order::create([
             'tour_id' => $id,
@@ -53,8 +53,8 @@ class OrderController extends Controller
 
         return response()->json([
             'success' => true,
-            'guide' => $guide->name,
-            'order_id' => $order->id
+//            'guide' => $guide,
+//            'order_id' => $order->id
         ], 200);
     }
 

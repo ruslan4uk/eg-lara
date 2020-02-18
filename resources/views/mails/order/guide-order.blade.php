@@ -112,9 +112,9 @@
                                     </p>
 
                                     <p style="color: #585f76; margin-bottom: 20px;">
-                                        <strong>Дата: </strong>{{ \Carbon\Carbon::parse($data->date_start)->format('M d Y') }}
+                                        <strong>Дата: </strong>{{ \Carbon\Carbon::parse($data->date_start)->format('d-m-Y') }}
                                         @if($data->date_end)
-                                            - {{ \Carbon\Carbon::parse($data->date_end)->format('M d Y') }}
+                                            - {{ \Carbon\Carbon::parse($data->date_end)->format('d-m-Y') }}
                                         @endif
                                     </p>
 

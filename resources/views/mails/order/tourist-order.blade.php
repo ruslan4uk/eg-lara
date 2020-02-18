@@ -80,7 +80,7 @@
                                     <h2 style="color: #405089; margin-bottom: 20px; font-weight: 500; font-size: 22px;">Здравствуйте, {{ $data->name }}!</h2>
 
                                     <p style="color: #585f76; margin-bottom: 20px;">
-                                        Гид подтвердил бронь экскурсии ""!
+                                        Гид подтвердил бронь экскурсии "{{ $data->tour->name }}"!
                                     </p>
 
                                     <div style="background-color: #cccccc; height: 1px; margin-top: 40px; margin-bottom: 40px;"></div>
@@ -90,9 +90,9 @@
                                     </p>
 
                                     <p style="color: #585f76; margin-bottom: 20px;">
-                                        <strong>Дата: </strong>{{ \Carbon\Carbon::parse($data->date_start)->format('M d Y') }}
+                                        <strong>Дата: </strong>{{ \Carbon\Carbon::parse($data->date_start)->format('d-m-Y') }}
                                         @if($data->date_end)
-                                            - {{ \Carbon\Carbon::parse($data->date_end)->format('M d Y') }}
+                                            - {{ \Carbon\Carbon::parse($data->date_end)->format('d-m-Y') }}
                                         @endif
                                     </p>
 
