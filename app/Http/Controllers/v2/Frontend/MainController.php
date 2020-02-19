@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\v2\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\MailSend;
+use App\Mail\Callback;
 use App\Tour;
 use Illuminate\Http\Request;
 
@@ -32,5 +34,20 @@ class MainController extends Controller
                 'last_tour' => $lastTour,
             ]
         ], 200);
+    }
+
+    public function sendCallback(Request $request)
+    {
+        $request->validate([
+            'name' => ['required'],
+            'email' => ['required'],
+            'comment' => ['required'],
+        ]);
+
+        MailSend::dispatch(['email' => 'info@excursguide.ru'], (new Callback($request->all())))->onConnection('database');
+
+        return response()->json([
+            'success' => true
+        ]);
     }
 }

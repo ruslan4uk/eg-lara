@@ -91,6 +91,10 @@ Route::prefix('/front')->group(function() {
    // Orders
    Route::post('/orders/{id}', 'Frontend\OrderController@store');
    Route::post('/orders/{id}/confirm', 'Frontend\OrderController@confirm');
+
+
+   // Send callback
+   Route::post('/callback', 'Frontend\MainController@sendCallback');
 });
 
 
