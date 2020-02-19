@@ -34,6 +34,7 @@ class Callback extends Mailable
     public function build()
     {
         return $this->view('mails.callback')
+            ->subject('Форма обратной связи')
             ->with([
                 'data' => $this->properties
             ]);
