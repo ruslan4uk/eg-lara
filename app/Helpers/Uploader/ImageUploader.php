@@ -62,7 +62,7 @@ class ImageUploader
     {
         // Создаем изображение из реквеста
         $image = Image::make($this->file)
-            ->fit(320, 320)
+            ->fit(400, 400)
             ->encode('jpg', 90);
 
         // Сохраняем изображение на AWS S3
